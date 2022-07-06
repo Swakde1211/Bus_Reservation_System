@@ -1,4 +1,6 @@
 package Reservation;
+import java.text.SimpleDateFormat;  	//Update
+import java.util.Date;  			//update
 
 import static Reservation.GlobalVariables.*;
 
@@ -115,6 +117,8 @@ public class User_Input {
 			
 			else if (choose_option == 4) {
 				System.out.println("Your Report is downloaded at your location:");
+			Report r=new Report();
+			r.reportt();
 			} 
 			
 			else if(choose_option == 5) {	

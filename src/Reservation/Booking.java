@@ -35,7 +35,7 @@ public class Booking {
 		s.setDouble(5, user_fare);
 		s.setInt(6, bus_id);
 		s.setString(7, bus_number);
-        s.executeUpdate();
+        s.executeQuery();
 		System.out.println("Successfully updated into booking table!");
 		transaction_id++;
             //}
