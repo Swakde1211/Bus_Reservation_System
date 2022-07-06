@@ -54,25 +54,44 @@ public class User_Input {
 			}
 
 			System.out.println("Bus Type");
-			String[] options = { "1- AC", "2- NON AC" };
+
+			
+			
+			
+			String[] options = { "1- AC", "2- NON AC" , "3- ALL"}; 	//Today 
 			printMenu(options);
 			int option;
+			int attempt=0;		//Today
+			do {				//Today
 			option = scanner.nextInt();
 			if (option == 1) {
 				bus_type1 = "AC";
-			} else {
+				break;
+			}else if(option==2) {
 				bus_type1 = "Non AC";
-			}
-			
-			//User_Options use =new User_Options();
-			//use.useroptionss();
+				break;
+			}else if(option==3) {		//Today
+				bus_type1= "true";		//Today
+				break;					//Today
+			}							//Today
+			else {						//Today
+				System.out.println("Enter Valid Option!");	//Today
+				attempt++;				//Today
+			}							//Today
+			}while(attempt!=3);			//Today
+			if(attempt==3) {			//Today
+				System.out.println("You have entered wrong information");		//Today
+				System.exit(0);	//Today
+			}	//Today
 
-			System.out.println("you have choosen " + bus_type1);
-			System.out.println("choose the option");
-			String[] choose = { "1 - Book a Ticket", "2 - Cancel My Ticket", "3 - Check Bus Status", "4 - Report", "5 - Exit" };
 			int choose_option;
+			System.out.println("you have choosen " + bus_type1);
+			do {						//Today [ display menu]
+			System.out.println("\nChoose the option");
+			String[] choose = { "1 - Book a Ticket", "2 - Cancel My Ticket", "3 - Check Bus Status", "4 - Report", "5 - Booking History", "6 - Cancellation History" , "7 - Exit" }; //Today
 			printMenu(choose);
 			choose_option = scanner.nextInt();
+
 
 			if (choose_option == 1) {
 				
@@ -98,11 +117,24 @@ public class User_Input {
 				System.out.println("Your Report is downloaded at your location:");
 			} 
 			
-			else if (choose_option == 5) {
+			else if(choose_option == 5) {	
+				
+				System.out.println("****************GETTING BOOKING HISTORY****************");
+				Booking_History bh=new Booking_History();
+				bh.booking_historyy();
+				
+			} else if(choose_option == 6) {
+				
+				Cancel_Ticket_History cth=new Cancel_Ticket_History();
+				cth.cancel_ticket_historyy();
+				
+			} else if (choose_option == 7) {
 				System.out.println("Exit");
 				System.exit(0);
+			} else {
+				System.out.println("Please Enter Valid Choice !\n");
 			}
-
+			}while(choose_option!=7);
 
 		}	
 }

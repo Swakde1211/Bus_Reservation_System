@@ -14,24 +14,24 @@ public class Refund {
 
 	public static void refundd()
 	{
-		Scanner sc = new Scanner(System.in);
+		Scanner sc=new Scanner(System.in);
 		
 		System.out.println("****************Cancelling Your Ticket !****************");
 		System.out.println();
 		System.out.println("Please Enter Your Transaction ID : ");
-		int t_id=sc.nextInt(); 
+		int t_id=sc.nextInt(); 				//Today
 		try {
-			//GETTING TICKET DETAILD FROM TRANSACTION ID
 			Statement stmt =null;
 			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
 			
-			stmt = c.createStatement();
+			stmt = c.createStatement();	
 			
+			//GETTING TICKET DETAILD FROM TRANSACTION ID
 		ResultSet rs = stmt.executeQuery("SELECT * FROM public.\"booking\" WHERE trans_id="+t_id+";");
 		while (rs.next()) {
 			tranc_date=rs.getString("date");
 			transaction_id=rs.getInt("trans_id");
-			bus_id=rs.getInt("bus_id");
+			bus_id=rs.getInt("bus_id");			//Today - maybe
 			System.out.println("Your Transaction Details are");
 			//System.out.println("Your User Id is:" + rs.getString("user_id"));
 			System.out.println("Your Bus pick location is:" + rs.getString("bus_source"));
@@ -52,13 +52,15 @@ public class Refund {
 			System.exit(0);
 		}
 		
-		//INSERTING IN CANCELLATION TABLE
+		if(t_id!=bus_id) {			//Today
+			System.out.println("Wrong Bus ID");		//Today
+			System.exit(0);			//Today
+		}
 		
+
 		try {
-			Statement stmt =null;
 			
 			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
-			stmt = c.createStatement();
 			
 			String sql2 ="INSERT INTO public.\"cancellation_ticket\"(user_id, trans_id, bus_source, bus_destionation, bus_time, bus_fare, bus_id, bus_number, ticket_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement s = c.prepareStatement(sql2);	
@@ -82,10 +84,8 @@ public class Refund {
 		
 		//DELETING TICKET FROM BOOKING TABLE
 		try {
-			Statement stmt =null;
 			
 			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
-			stmt = c.createStatement();
 			
 			String sql2 ="DELETE FROM public.\"booking\" WHERE trans_id="+t_id +";";
             PreparedStatement s = c.prepareStatement(sql2);
@@ -105,7 +105,7 @@ public class Refund {
 			
 			stmt = c.createStatement();
 			
-			stmt.executeQuery("UPDATE public.\"bus_info\" SET seats_available=seats_available+1 WHERE bus_id=" + bus_id + ";");
+			stmt.executeUpdate("UPDATE public.\"bus_info\" SET seats_available=seats_available+1 WHERE bus_id=" + bus_id + ";");
 			System.out.println("Seat Decreamented by 1");
 			// System.out.println(rs.getFetchSize());
 		} catch (Exception e) { 	

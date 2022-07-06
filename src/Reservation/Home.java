@@ -15,7 +15,7 @@ public class Home {
 		User_Input u=new User_Input();
 		u.userinputt();
 		
-			
+		
 	}
 }
 

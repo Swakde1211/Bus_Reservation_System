@@ -100,13 +100,44 @@ public class Booking_Process {
 		
 		System.out.println("Please Enter The Bus ID : ");
 		bus_id = sc.nextInt();
-		try {
+		int get_id = 0;		//Today
+		boolean check_bus_id=false;		//Today
+		try {	//Today
+
 			Statement stmt =null;
 			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
 			
 			stmt = c.createStatement();
 			
-			stmt.executeQuery(
+			
+
+		ResultSet rs = stmt.executeQuery("select * from public.\"bus_info\" where bus_id="+bus_id+";");	//Today
+		while (rs.next()) {		
+			get_id=rs.getInt("bus_id");		
+		}									
+		if(get_id != bus_id) {				//Today
+			System.out.println("Wrong Bus ID");	//Today
+			check_bus_id=true;				//Today
+			System.exit(0);					//Today
+		}									//Today
+		
+		}									//Today
+		catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			// System.exit(0);
+		}
+		
+		if(check_bus_id) { //IF WRONG BUS ID ENTERED THEN AVOIDING INERTION IN BOOKING TABLE		//Today
+			System.exit(0);		//Today
+		}			
+		try {
+
+			Statement stmt =null;
+			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+			
+			stmt = c.createStatement();	
+
+			ResultSet rs = stmt.executeQuery(
 					"UPDATE public.\"bus_info\" SET seats_available=seats_available-1 WHERE bus_id=" + bus_id + "");
 			// System.out.println(rs.getFetchSize());
 		} catch (Exception e) {
@@ -114,11 +145,14 @@ public class Booking_Process {
 			// System.exit(0);
 		}
 		try {
+
 			Statement stmt =null;
 			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
 			
 			stmt = c.createStatement();
 			
+			
+
 			ResultSet rs1 = stmt.executeQuery("SELECT * FROM public.\"bus_info\"WHERE bus_id=" + bus_id + "");
 			
 			while (rs1.next()) {
@@ -141,7 +175,8 @@ public class Booking_Process {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
-			
+
+	
 	
 	
 	
