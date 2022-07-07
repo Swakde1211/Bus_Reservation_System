@@ -29,68 +29,12 @@ public class User_Input {
 			
 			boolean flag = true;
 		
-			
-			System.out.println("Add source");
-			String Source = sc.next();
-			user_source = Source;
-			System.out.println("Add Destination");
-			String Destination = sc.next();
-			user_dest = Destination;
-
-			
-			System.out.println("Add Age");
-			int Age = sc.nextInt();
-			user_age = Age;
-			if (Age < 5) {
-				System.out.println("You dont need any ticket!!");
-			} else if (Age > 60) {
-				System.out.println("You will get concession ticket!!");
-
-			}
-			System.out.println("Your Gender");
-			String Gender = sc.next();
-			user_gender = Gender;
-
-			if (Gender.equals("F") || Gender.equals("f")) {
-				System.out.println("You will get concession ticket!!");
-			}
-
-			System.out.println("Bus Type");
-
-			
-			
-			
-			String[] options = { "1- AC", "2- NON AC" , "3- ALL"}; 	//Today 
-			printMenu(options);
-			int option;
-			int attempt=0;		//Today
-			do {				//Today
-			option = scanner.nextInt();
-			if (option == 1) {
-				bus_type1 = "AC";
-				break;
-			}else if(option==2) {
-				bus_type1 = "Non AC";
-				break;
-			}else if(option==3) {		//Today
-				bus_type1= "true";		//Today
-				break;					//Today
-			}							//Today
-			else {						//Today
-				System.out.println("Enter Valid Option!");	//Today
-				attempt++;				//Today
-			}							//Today
-			}while(attempt!=3);			//Today
-			if(attempt==3) {			//Today
-				System.out.println("You have entered wrong information");		//Today
-				System.exit(0);	//Today
-			}	//Today
 
 			int choose_option;
 			System.out.println("you have choosen " + bus_type1);
-			do {						//Today [ display menu]
+			do {						
 			System.out.println("\nChoose the option");
-			String[] choose = { "1 - Book a Ticket", "2 - Cancel My Ticket", "3 - Check Bus Status", "4 - Report", "5 - Booking History", "6 - Cancellation History" , "7 - Exit" }; //Today
+			String[] choose = { "1 - Book a Ticket", "2 - Cancel My Ticket", "3 - Check Bus Status", "4 - Report", "5 - Booking History", "6 - Cancellation History" , "7 - Exit" }; 
 			printMenu(choose);
 			choose_option = scanner.nextInt();
 

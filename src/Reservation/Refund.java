@@ -19,7 +19,7 @@ public class Refund {
 		System.out.println("****************Cancelling Your Ticket !****************");
 		System.out.println();
 		System.out.println("Please Enter Your Transaction ID : ");
-		int t_id=sc.nextInt(); 				//Today
+		int t_id=sc.nextInt(); 				
 		try {
 			Statement stmt =null;
 			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
@@ -31,7 +31,7 @@ public class Refund {
 		while (rs.next()) {
 			tranc_date=rs.getString("date");
 			transaction_id=rs.getInt("trans_id");
-			bus_id=rs.getInt("bus_id");			//Today - maybe
+			bus_id=rs.getInt("bus_id");			 
 			System.out.println("Your Transaction Details are");
 			//System.out.println("Your User Id is:" + rs.getString("user_id"));
 			System.out.println("Your Bus pick location is:" + rs.getString("bus_source"));
@@ -52,11 +52,11 @@ public class Refund {
 			System.exit(0);
 		}
 		
-		if(t_id!=bus_id) {			//Today
-			System.out.println("Wrong Bus ID");		//Today
-			System.exit(0);			//Today
+		/*if(t_id!=bus_id) {			
+			System.out.println("Wrong Bus ID");		
+			System.exit(0);			
 		}
-		
+		*/
 
 		try {
 			
