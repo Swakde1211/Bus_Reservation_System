@@ -7,11 +7,21 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Scanner;
 
 public class Bus_Status {
 	public static void bus_statuss()
 	{
+		
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter Your Source :");
+		user_source=sc.next();
+		user_source = user_source.substring(0,1).toUpperCase() + user_source.substring(1).toLowerCase(); //latest
+		System.out.println("Enter Your Destination :");
+		user_dest=sc.next();
+		user_dest = user_dest.substring(0,1).toUpperCase() + user_dest.substring(1).toLowerCase(); //latest			
 		System.out.println( user_source +" -> "+user_dest);
+		
 		
 		try {		
 			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");

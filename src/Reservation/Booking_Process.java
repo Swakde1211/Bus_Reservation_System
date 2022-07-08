@@ -28,38 +28,41 @@ public class Booking_Process {
 	public static void booking_processs()
 	{
 		
-		Scanner sc=new Scanner(System.in);
-		Scanner scanner=new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);
+	
+		
+		System.out.println("Booking Your Ticket!");
 		int matched_bus=0;
 		System.out.println("Add source");
 		String Source = sc.next();
 		Source = Source.substring(0,1).toUpperCase() + Source.substring(1).toLowerCase(); //latest
 		System.out.println("Pick Up Point : "+Source);	//latest
 		user_source = Source;
-		
-		
 		System.out.println("Add Destination");
 		String Destination = sc.next();
 		Destination = Destination.substring(0,1).toUpperCase() + Destination.substring(1).toLowerCase();	//latest
 		System.out.println("Drop off Point : "+Destination);		//latest
 		user_dest = Destination;
 
-		
+		//Scanner scanner = new Scanner(System.in);
+		boolean offer_applied=false;
 		System.out.println("Add Age");
 		int Age = sc.nextInt();
 		user_age = Age;
 		if (Age < 5) {
 			System.out.println("You dont need any ticket!!");
-		} else if (Age > 60) {
-			System.out.println("You will get concession ticket!!");
+		} else if (Age > 60 || user_age< 12) {
+			offer_applied=true;
+			System.out.println("You will get concession 20% on ticket!!");
 
 		}
-		System.out.println("Your Gender");
-		String Gender = sc.next();
-		user_gender = Gender;
+		System.out.println("Your Gender(f or m)");	//Today
+		String Gender = sc.next();					//Today
+		user_gender = Gender;						//Today
 
 		if (Gender.equals("F") || Gender.equals("f")) {
-			System.out.println("You will get concession ticket!!");
+			System.out.println("You will get concession 10% on ticket!!");
 		}
 		else if(Gender.equals("M") || Gender.equals("m")) {
 		}
@@ -68,12 +71,6 @@ public class Booking_Process {
 			System.exit(0);
 		}
 
-		System.out.println("Bus Type");
-
-		
-		
-		
-		
 		System.out.println("Bus Type");
 		String[] options = { "1- AC", "2- NON AC" , "3- ALL"}; 	//Today 
 		printMenu(options);
@@ -100,16 +97,17 @@ public class Booking_Process {
 			System.out.println("You have entered wrong information");		//Today
 			System.exit(0);	//Today
 		}	//Today
-		System.out.println("you have choosen " + bus_type1);
+		if(bus_type1=="AC" || bus_type1=="Non AC") {
+			System.out.println("you have choosen " + bus_type1);				
+		}
 				try {  //Latest below query
-					
 					Statement stmt =null;
 					
 					Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
 					
 					stmt = c.createStatement();
 			
-			ResultSet rs = stmt.executeQuery("SELECT * FROM public.\"bus_info\" where source = '"+ user_source +"' and destination ='"+user_dest+"';"); //Latest
+					ResultSet rs = stmt.executeQuery("SELECT * FROM public.\"bus_info\" where source = '"+ user_source +"' and destination ='"+user_dest+"';"); //Latest
 
 			int i = 1;
 			boolean display = true;
@@ -129,7 +127,6 @@ public class Booking_Process {
 				// stmt.executeQuery(sq);
 				
 				if(bus_type1!="true") { //CHECKING FOR AC OR NON-AC BUSES	//Today complete if and else loop from here till ...
-					//if (source.equals(user_source) && destination.equals(user_dest) && bus_type1.equals(bus_type) && seats_available != 0) { 
 					if (bus_type1.equals(bus_type) && seats_available != 0) { //Latest
 						// System.out.println("Source and des matched");
 						matched_bus++;
@@ -142,86 +139,68 @@ public class Booking_Process {
 								display = false;
 							}
 							double bus_fare3 = Integer.parseInt(bus_fare);
-							bus_fare3 = bus_fare3 * 0.8;
-							user_fare = bus_fare3;
-							System.out.println("Number-" + i + "\tbus_id =" + id + "\tBus number:" + bus_number
+							user_fare = bus_fare3 * 0.8;
+							//user_fare = bus_fare3;
+							/*System.out.println("Number-" + i + "\tbus_id =" + id + "\tBus number:" + bus_number
 									+ "\tBus Time:" + bus_time + "\tSource: " + source + "\tDestination:" + destination
-									+ "\tTicket Price : " + bus_fare3 + "\tBus Type : " + bus_type);
+									+ "\tTicket Price : " + bus_fare3 + "\tBus Type : " + bus_type);*/
 						} else if (user_gender.equals("F") || user_gender.equals("f")) {
 							if (display) {
 								System.out.println("You will get 10% concession on ticket!!");
 								display = false;
 							}
 							double bus_fare2 = Integer.parseInt(bus_fare);
-							bus_fare2 = bus_fare2 * 0.9;
-							user_fare = bus_fare2;
-							System.out.println("Number-" + i + "\tbus_id =" + id + "\tBus number:" + bus_number
+							user_fare = bus_fare2 * 0.9;
+							//user_fare = bus_fare2;
+							/*System.out.println("Number-" + i + "\tbus_id =" + id + "\tBus number:" + bus_number
 									+ "\tBus Time:" + bus_time + "\tSource: " + source + "\tDestination:" + destination
-									+ "\tTicket Price : " + bus_fare2 + "\tBus Type : " + bus_type);
-						} else {
-							System.out.println("Number-" + i + "\tbus_id =" + id + "\tBus number:" + bus_number
-									+ "\tBus Time:" + bus_time + "\tSource: " + source + "\tDestination:" + destination
-									+ "\tTicket Price:" + bus_fare + "\tBus Type:" + bus_type);
+									+ "\tTicket Price : " + bus_fare2 + "\tBus Type : " + bus_type);*/
 						}
+							System.out.println("Number-" + i + "\tbus_id =" + id + "\tBus number:" + bus_number
+									+ "\tBus Time:" + bus_time + "\tSource: " + source + "\tDestination:" + destination
+									+ "\tTicket Price:" + user_fare + "\tBus Type:" + bus_type);
+						
 						i++;
 					} //END OF IF LOOP
 				}
 				else { //CHECKING FOR ALL BUSES
-					//if (source.equals(user_source) && destination.equals(user_dest) && seats_available != 0) {
 					if (seats_available != 0) { // Latest
 						matched_bus++;
 						if (user_age < 5) {
 							System.out.println("You dont need any ticket!!");
 							System.exit(0);
-						} else if (user_age > 60) {
+						} else if (user_age > 60 || user_age< 12) {
 							if (display) {
 								System.out.println("You will get 20% concession on ticket!!");
 								display = false;
 							}
 							double bus_fare3 = Integer.parseInt(bus_fare);
-							bus_fare3 = bus_fare3 * 0.8;
-							user_fare = bus_fare3;
-							System.out.println("Number-" + i + "\tbus_id =" + id + "\tBus number:" + bus_number
-									+ "\tBus Time:" + bus_time + "\tSource: " + source + "\tDestination:" + destination
-									+ "\tTicket Price : " + bus_fare3 + "\tBus Type : " + bus_type);
+							user_fare = bus_fare3 * 0.8;
+							
 						} else if (user_gender.equals("F") || user_gender.equals("f")) {
 							if (display) {
 								System.out.println("You will get 10% concession on ticket!!");
 								display = false;
 							}
 							double bus_fare2 = Integer.parseInt(bus_fare);
-							bus_fare2 = bus_fare2 * 0.9;
-							user_fare = bus_fare2;
-							System.out.println("Number-" + i + "\tbus_id =" + id + "\tBus number:" + bus_number
-									+ "\tBus Time:" + bus_time + "\tSource: " + source + "\tDestination:" + destination
-									+ "\tTicket Price : " + bus_fare2 + "\tBus Type : " + bus_type);
-						} else {
-							System.out.println("Number-" + i + "\tbus_id =" + id + "\tBus number:" + bus_number
-									+ "\tBus Time:" + bus_time + "\tSource: " + source + "\tDestination:" + destination
-									+ "\tTicket Price:" + bus_fare + "\tBus Type:" + bus_type);
+							user_fare = bus_fare2 * 0.9;
 						}
+							System.out.println("Number-" + i + "\tbus_id =" + id + "\tBus number:" + bus_number
+									+ "\tBus Time:" + bus_time + "\tSource: " + source + "\tDestination:" + destination
+									+ "\tTicket Price:" + user_fare + "\tBus Type:" + bus_type);
+						
 						i++;
 					}
 					
 				}		//Today ...till here. replace if loop with this if else.
-			} // End of while loop
+			} // End of while loop	
 				
 			/*
 			 * rs.close();
 			 * stmt.close();
 			 * c.close();
 			 */
-		}		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		}
 
 		catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -231,46 +210,43 @@ public class Booking_Process {
 			System.out.println("Sorry! We don't have buses on your rout yet.");
 			System.exit(0);
 		}
-		
 		System.out.println("Please Enter The Bus ID : ");
 		bus_id = sc.nextInt();
-		int get_id = 0;		
-		boolean check_bus_id=false;		
-		try {	
-
-			Statement stmt =null;
+		int get_id = 0;		//Today
+		boolean check_bus_id=false;		//Today
+		try {	//Today
+	Statement stmt =null;
+			
 			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
 			
 			stmt = c.createStatement();
-			
-			
-
-		ResultSet rs = stmt.executeQuery("select * from public.\"bus_info\" where bus_id="+bus_id+";");	
+	
+		ResultSet rs = stmt.executeQuery("select * from public.\"bus_info\" where bus_id="+bus_id+";");	//Today
 		while (rs.next()) {		
 			get_id=rs.getInt("bus_id");		
 		}									
-		if(get_id != bus_id) {				
-			System.out.println("Wrong Bus ID");	
-			check_bus_id=true;				
-			System.exit(0);					
-		}									
+		if(get_id != bus_id) {				//Today
+			System.out.println("Wrong Bus ID");	//Today
+			check_bus_id=true;				//Today
+			System.exit(0);					//Today
+		}									//Today
 		
-		}									
+		}									//Today
 		catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			// System.exit(0);
 		}
 		
-		if(check_bus_id) { //IF WRONG BUS ID ENTERED THEN AVOIDING INERTION IN BOOKING TABLE		
-			System.exit(0);		
-		}			
+		if(check_bus_id) { //IF WRONG BUS ID ENTERED THEN AVOIDING INERTION IN BOOKING TABLE		//Today
+			System.exit(0);		//Today
+		}			//Today
 		try {
-
-			Statement stmt =null;
+	Statement stmt =null;
+			
 			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
 			
-			stmt = c.createStatement();	
-
+			stmt = c.createStatement();
+	
 			stmt.execute(
 					"UPDATE public.\"bus_info\" SET seats_available=seats_available-1 WHERE bus_id=" + bus_id + "");
 			// System.out.println(rs.getFetchSize());
@@ -278,20 +254,19 @@ public class Booking_Process {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			// System.exit(0);
 		}
-		try {
+		try {	Statement stmt =null;
+		
+		Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+		
+		stmt = c.createStatement();
 
-			Statement stmt =null;
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
 			
-			stmt = c.createStatement();
-			
-			
-
 			ResultSet rs1 = stmt.executeQuery("SELECT * FROM public.\"bus_info\"WHERE bus_id=" + bus_id + "");
 			
 			while (rs1.next()) {
 				System.out.println("Your Booking Details are");
 				System.out.println("Your Bus Id is:" + rs1.getString("bus_id"));
+				//System.out.println("Your Transaction ID is:" + rs1.getInt("trans_id"));
 				System.out.println("Your Bus pick location is:" + rs1.getString("source"));
 				System.out.println("Your Bus drop location is:" + rs1.getString("destination"));
 				System.out.println("Your Bus Number is:" + rs1.getString("bus_number"));
@@ -309,64 +284,43 @@ public class Booking_Process {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
-
-	
-	
-	
-	
-//	Booking b=new Booking();
-	//b.bookingg();
-	
+			try {
+				Statement stmt =null;
+				
+				Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+				
+				stmt = c.createStatement();
 		
-	
+                //if (c != null) {
+
+			//Statement stmnt=null;
+			/*String sql = "INSERT INTO public.\"booking\"(user_id, trans_id, bus_source, bus_destination, bus_time, bus_fare, bus_id, bus_number)"
+					+ "VALUES ("+user_id +","+transaction_id +","+ user_source+", "+ user_dest+", "+ bus_time+", "+ user_fare+", "+ bus_id+", "+ bus_number+");";
+            */
+            String sql ="INSERT INTO public.\"booking\"(user_id, bus_source, bus_destination, bus_time, bus_fare, bus_id, bus_number)VALUES (?, ?, ?, ?, ?, ?, ?);";
+    		
+    		
+            PreparedStatement s = c.prepareStatement(sql);
+
+	        //stmnt.executeUpdate(sql);
+			//PreparedStatement s = c.prepareStatement(sql);
+			s.setDouble(1, user_id);
+			//s.setInt(2, transaction_id);
+			s.setString(2, user_source);
+			s.setString(3, user_dest);
+			s.setString(4, bus_time);
+			s.setDouble(5, user_fare);
+			s.setInt(6, bus_id);
+			s.setString(7, bus_number);
+            s.execute();
+			System.out.println("Successfully updated into booking table!");
+			transaction_id++;
+                //}
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
 
 	}
-}
 
-
-
-
-
-
-class Bookingg extends Booking_Process{
-	
-	public void bookingg()
-	{
-		
-		Booking_Process bp =new Booking_Process();
-		bp.booking_processs();
-		
-		try {
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
-			
-            //if (c != null) {
-
-		//Statement stmnt=null;
-		/*String sql = "INSERT INTO public.\"booking\"(user_id, trans_id, bus_source, bus_destination, bus_time, bus_fare, bus_id, bus_number)"
-				+ "VALUES ("+user_id +","+transaction_id +","+ user_source+", "+ user_dest+", "+ bus_time+", "+ user_fare+", "+ bus_id+", "+ bus_number+");";
-        */
-        String sql ="INSERT INTO public.\"booking\"(user_id, bus_source, bus_destination, bus_time, bus_fare, bus_id, bus_number)VALUES (?, ?, ?, ?, ?, ?, ?);";
-        PreparedStatement s = c.prepareStatement(sql);
-
-        //stmnt.executeUpdate(sql);
-		//PreparedStatement s = c.prepareStatement(sql);
-		s.setDouble(1, user_id);
-		//s.setInt(2, transaction_id);
-		s.setString(2, user_source);
-		s.setString(3, user_dest);
-		s.setString(4, bus_time);
-		s.setDouble(5, user_fare);
-		s.setInt(6, bus_id);
-		s.setString(7, bus_number);
-        s.execute();
-		System.out.println("Successfully updated into booking table!");
-		transaction_id++;
-            //}
-	} catch (Exception e) {
-		System.err.println(e.getClass().getName() + ": " + e.getMessage());
-		System.exit(0);
-	}
-
-		
-	}
 	}
