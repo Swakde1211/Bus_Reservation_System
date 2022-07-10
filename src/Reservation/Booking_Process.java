@@ -46,20 +46,34 @@ public class Booking_Process {
 		user_dest = Destination;
 
 		//Scanner scanner = new Scanner(System.in);
+		try {
+			  
 		boolean offer_applied=false;
 		System.out.println("Add Age");
 		int Age = sc.nextInt();
 		user_age = Age;
-		if (Age < 5) {
+		if (Age < 5 || user_age >0) {
 			System.out.println("You dont need any ticket!!");
 		} else if (Age > 60 || user_age< 12) {
 			offer_applied=true;
 			System.out.println("You will get concession 20% on ticket!!");
 
 		}
-		System.out.println("Your Gender(f or m)");	//Today
-		String Gender = sc.next();					//Today
-		user_gender = Gender;						//Today
+		
+		if(user_age >125 || user_age <0)
+		    throw new AgeException("Age cannot be negative or greater then 125 ???");
+		   else
+		    System.out.println("Your age is perfect !!!");
+		  
+		}
+		catch (AgeException u) {
+			   u.printStackTrace();
+			  }
+			
+		
+		System.out.println("Your Gender(f or m)");	
+		String Gender = sc.next();					
+		user_gender = Gender;						
 
 		if (Gender.equals("F") || Gender.equals("f")) {
 			System.out.println("You will get concession 10% on ticket!!");
@@ -72,11 +86,11 @@ public class Booking_Process {
 		}
 
 		System.out.println("Bus Type");
-		String[] options = { "1- AC", "2- NON AC" , "3- ALL"}; 	//Today 
+		String[] options = { "1- AC", "2- NON AC" , "3- ALL"}; 	 
 		printMenu(options);
 		int option;
-		int attempt=0;		//Today
-		do {				//Today
+		int attempt=0;		
+		do {				
 		option = scanner.nextInt();
 		if (option == 1) {
 			bus_type1 = "AC";
@@ -84,19 +98,19 @@ public class Booking_Process {
 		}else if(option==2) {
 			bus_type1 = "Non AC";
 			break;
-		}else if(option==3) {		//Today
-			bus_type1= "true";		//Today
-			break;					//Today
-		}							//Today
-		else {						//Today
-			System.out.println("Enter Valid Option!");	//Today
-			attempt++;				//Today
-		}							//Today
-		}while(attempt!=3);			//Today
-		if(attempt==3) {			//Today
-			System.out.println("You have entered wrong information");		//Today
-			System.exit(0);	//Today
-		}	//Today
+		}else if(option==3) {		
+			bus_type1= "true";		
+			break;					
+		}							
+		else {						
+			System.out.println("Enter Valid Option!");	
+			attempt++;				
+		}							
+		}while(attempt!=3);			
+		if(attempt==3) {			
+			System.out.println("You have entered wrong information");		
+			System.exit(0);	
+		}	
 		if(bus_type1=="AC" || bus_type1=="Non AC") {
 			System.out.println("you have choosen " + bus_type1);				
 		}
@@ -126,11 +140,11 @@ public class Booking_Process {
 				// HEADER";
 				// stmt.executeQuery(sq);
 				
-				if(bus_type1!="true") { //CHECKING FOR AC OR NON-AC BUSES	//Today complete if and else loop from here till ...
+				if(bus_type1!="true") { //CHECKING FOR AC OR NON-AC BUSES	 complete if and else loop from here till ...
 					if (bus_type1.equals(bus_type) && seats_available != 0) { //Latest
 						// System.out.println("Source and des matched");
 						matched_bus++;
-						if (user_age < 5) {
+						if (user_age < 5 || user_age >0) {
 							System.out.println("You dont need any ticket!!");
 							System.exit(0);
 						} else if (user_age > 60) {
@@ -138,6 +152,7 @@ public class Booking_Process {
 								System.out.println("You will get 20% concession on ticket!!");
 								display = false;
 							}
+							
 							double bus_fare3 = Integer.parseInt(bus_fare);
 							user_fare = bus_fare3 * 0.8;
 							//user_fare = bus_fare3;
@@ -166,7 +181,7 @@ public class Booking_Process {
 				else { //CHECKING FOR ALL BUSES
 					if (seats_available != 0) { // Latest
 						matched_bus++;
-						if (user_age < 5) {
+						if (user_age < 5 || user_age >0) {
 							System.out.println("You dont need any ticket!!");
 							System.exit(0);
 						} else if (user_age > 60 || user_age< 12) {
@@ -192,7 +207,7 @@ public class Booking_Process {
 						i++;
 					}
 					
-				}		//Today ...till here. replace if loop with this if else.
+				}		
 			} // End of while loop	
 				
 			/*
@@ -212,34 +227,34 @@ public class Booking_Process {
 		}
 		System.out.println("Please Enter The Bus ID : ");
 		bus_id = sc.nextInt();
-		int get_id = 0;		//Today
-		boolean check_bus_id=false;		//Today
-		try {	//Today
+		int get_id = 0;		
+		boolean check_bus_id=false;		
+		try {	
 	Statement stmt =null;
 			
 			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
 			
 			stmt = c.createStatement();
 	
-		ResultSet rs = stmt.executeQuery("select * from public.\"bus_info\" where bus_id="+bus_id+";");	//Today
+		ResultSet rs = stmt.executeQuery("select * from public.\"bus_info\" where bus_id="+bus_id+";");	
 		while (rs.next()) {		
 			get_id=rs.getInt("bus_id");		
 		}									
-		if(get_id != bus_id) {				//Today
-			System.out.println("Wrong Bus ID");	//Today
-			check_bus_id=true;				//Today
-			System.exit(0);					//Today
-		}									//Today
+		if(get_id != bus_id) {				
+			System.out.println("Wrong Bus ID");	
+			check_bus_id=true;				
+			System.exit(0);					
+		}									
 		
-		}									//Today
+		}									
 		catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			// System.exit(0);
 		}
 		
-		if(check_bus_id) { //IF WRONG BUS ID ENTERED THEN AVOIDING INERTION IN BOOKING TABLE		//Today
-			System.exit(0);		//Today
-		}			//Today
+		if(check_bus_id) { //IF WRONG BUS ID ENTERED THEN AVOIDING INERTION IN BOOKING TABLE		
+			System.exit(0);		
+		}			
 		try {
 	Statement stmt =null;
 			

@@ -9,6 +9,15 @@ import java.sql.Connection;
 
 import java.util.Scanner;
 
+
+class AgeException extends Exception {
+	 
+	 public AgeException(String msg) {
+	  super(msg);
+	 }
+	}
+
+
 public class User_Input {
 	
 	public static void printMenu(String[] options) {

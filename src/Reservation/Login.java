@@ -7,6 +7,14 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Scanner;
 
+class UsernameException extends Exception {
+	 
+	 public UsernameException(String msg) {
+	  super(msg);
+	 }
+	}
+
+	
 public class Login {
 	public static int user_id;
 	public static String user_name;
@@ -29,7 +37,19 @@ public class Login {
 			System.out.println("Please Enter Password:");
 			String pass = sc.next();
 			System.out.println(name + " "+pass);
-
+			
+			int length = name.length();
+			  
+			  try {
+			   if(length < 6)
+			    throw new UsernameException("Username must be greater than 6 characters ???");
+			   else
+			    System.out.println("Login Successful !!!");
+			  }
+			  catch (UsernameException u) {
+			   u.printStackTrace();
+			  }
+			
 
 			try {
 	            			
