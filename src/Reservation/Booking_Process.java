@@ -15,8 +15,19 @@ import static Reservation.GlobalVariables.user_source;
 import java.sql.*;
 import java.util.Scanner;
 
+class AgeException extends Exception {
+	 
+	 public AgeException(String msg) {
+	  
+		 System.out.println(msg);
+		 System.exit(0);
+		 
+	 }
+	}
+
 public class Booking_Process {
 
+	
 	public static void printMenu(String[] options) {
 
 		for (String option : options) {
@@ -31,7 +42,7 @@ public class Booking_Process {
 		Scanner scanner = new Scanner(System.in);
 		Scanner sc = new Scanner(System.in);
 	
-		
+		System.out.println("User ID:"+user_id);
 		System.out.println("Booking Your Ticket!");
 		int matched_bus=0;
 		System.out.println("Add source");
@@ -52,23 +63,32 @@ public class Booking_Process {
 		System.out.println("Add Age");
 		int Age = sc.nextInt();
 		user_age = Age;
-		if (Age < 5 || user_age >0) {
+		if(user_age<=0) 
+		{
+			throw new AgeException("Age cannot be negative or greater then 125 ???");
+			
+	
+			
+		}
+		else
+		    System.out.println("Your age is perfect !!!");
+		 
+		
+		
+		if (Age < 5) {
 			System.out.println("You dont need any ticket!!");
 		} else if (Age > 60 || user_age< 12) {
 			offer_applied=true;
 			System.out.println("You will get concession 20% on ticket!!");
 
 		}
-		
-		if(user_age >125 || user_age <0)
-		    throw new AgeException("Age cannot be negative or greater then 125 ???");
-		   else
-		    System.out.println("Your age is perfect !!!");
-		  
 		}
-		catch (AgeException u) {
-			   u.printStackTrace();
-			  }
+		catch(AgeException exp){
+			System.out.println(exp) ;
+			System.out.println("Please try again!!") ;
+			System.exit(0);
+		}
+		
 			
 		
 		System.out.println("Your Gender(f or m)");	
@@ -144,7 +164,7 @@ public class Booking_Process {
 					if (bus_type1.equals(bus_type) && seats_available != 0) { //Latest
 						// System.out.println("Source and des matched");
 						matched_bus++;
-						if (user_age < 5 || user_age >0) {
+						if (user_age < 5 ) {
 							System.out.println("You dont need any ticket!!");
 							System.exit(0);
 						} else if (user_age > 60) {
@@ -166,11 +186,7 @@ public class Booking_Process {
 							}
 							double bus_fare2 = Integer.parseInt(bus_fare);
 							user_fare = bus_fare2 * 0.9;
-							//user_fare = bus_fare2;
-							/*System.out.println("Number-" + i + "\tbus_id =" + id + "\tBus number:" + bus_number
-									+ "\tBus Time:" + bus_time + "\tSource: " + source + "\tDestination:" + destination
-									+ "\tTicket Price : " + bus_fare2 + "\tBus Type : " + bus_type);*/
-						}
+													}
 							System.out.println("Number-" + i + "\tbus_id =" + id + "\tBus number:" + bus_number
 									+ "\tBus Time:" + bus_time + "\tSource: " + source + "\tDestination:" + destination
 									+ "\tTicket Price:" + user_fare + "\tBus Type:" + bus_type);
@@ -181,7 +197,11 @@ public class Booking_Process {
 				else { //CHECKING FOR ALL BUSES
 					if (seats_available != 0) { // Latest
 						matched_bus++;
-						if (user_age < 5 || user_age >0) {
+						if(user_age<0) {
+							System.out.println("User age cannot be negative");
+							System.exit(0);
+						}
+						if (user_age < 5) {
 							System.out.println("You dont need any ticket!!");
 							System.exit(0);
 						} else if (user_age > 60 || user_age< 12) {
@@ -320,6 +340,7 @@ public class Booking_Process {
 	        //stmnt.executeUpdate(sql);
 			//PreparedStatement s = c.prepareStatement(sql);
 			s.setDouble(1, user_id);
+			System.out.println(user_id);
 			//s.setInt(2, transaction_id);
 			s.setString(2, user_source);
 			s.setString(3, user_dest);

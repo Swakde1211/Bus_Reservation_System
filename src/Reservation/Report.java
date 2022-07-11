@@ -1,15 +1,64 @@
 package Reservation;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;  	//Update
-import java.util.Date;  			//update
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+//update
 import java.util.*;
-import java.util.Scanner;
 
 public class Report {
+/*	public static void generate_report()
+	{
+		System.out.println("hello");
+		try {
+			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+			
+         String sql ="select * from  public.\"booking\"";
+        PreparedStatement s = c.prepareStatement(sql);
+        ResultSet res=s.executeQuery();
+        ArrayList <String> sreport=new ArrayList<String>();
+       
+        while(res.next())
+        {
+        	sreport.add(res.getString("user_id"));
+
+        	sreport.add(res.getString("trans_id"));
+        	sreport.add(res.getString("bus_source"));
+        	sreport.add(res.getString("bus_destination"));
+        	sreport.add(res.getString("bus_time"));
+        	
+        	sreport.add(res.getString("bus_fare"));
+        	sreport.add(res.getString("bus_id"));
+        	sreport.add(res.getString("bus_number"));
+        	
+            	
+        }
+        File file = new File("C:\\Users\\swakde\\eclipse-workspace\\Bus_Reservationsystem\\report.csv");
+        FileWriter fw = new FileWriter(file);
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write("User id"+","+"Trans_id"+"Bus Sources" +"Bus Destination");
+        bw.newLine();
+        for(int i=0;i<sreport.size();i++)
+        {
+            bw.write(sreport.get(i++)+","+sreport.get(i++)+","+sreport.get(i++)+","+sreport.get(i++)+","+sreport.get(i++)+","+sreport.get(i++)+","+sreport.get(i++)+","+sreport.get(i));
+            bw.newLine();
+            
+        }
+        bw.close();
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+		
+	}
+	
+*/
 	public static void max_booking(String date) {
 		Statement stmt =null;
 	
@@ -17,36 +66,113 @@ public class Report {
 		try {
 			Class.forName("org.postgresql.Driver");
 			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
-				// c.setAutoCommit(false);
-		//System.out.println("Databse Successfully Connected.");
-		stmt = c.createStatement();
+				stmt = c.createStatement();
 		}catch (Exception e) { 	
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
 		try {
-			System.out.println("Booking Summary :");
-			//ResultSet rs = stmt.executeQuery("select bus_source, bus_destination,date,count(bus_source) as count from public.\"booking\" group by bus_source,bus_destination,date having date='"+date+"';");
-			ResultSet rs = stmt.executeQuery("select bus_source, bus_destination,date,count(bus_source) as count from public.\"booking\" group by bus_source,bus_destination,date having date='"+date+"';");
-			while(rs.next()) {
+			
+			
+			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+			
+	        String sql ="select bus_source, bus_destination,date,count(bus_source) as count from public.\"booking\" group by bus_source,bus_destination,date having date='"+date+"';";
+	        PreparedStatement s = c.prepareStatement(sql);
+	        ResultSet rs=s.executeQuery();
+	        
+			
+			
+		/*	while(rs.next()) {
 				System.out.print("Source: "+rs.getString("bus_source"));
 				System.out.print("\tDestination: "+rs.getString("bus_destination"));
 				System.out.println("\tBooking Count: "+rs.getString("count"));
 			}
-	    }
+	    */
+			ArrayList <String> sreport=new ArrayList<String>();
+	       
+			while(rs.next())
+	        {
+	        	sreport.add(rs.getString("bus_source"));
+	        	sreport.add(rs.getString("bus_destination"));
+	        	
+	        	sreport.add(rs.getString("date"));
+	        	sreport.add(rs.getString("count"));
+	        	
+	        	
+	        	
+	        }
+	        File file = new File("C:\\Users\\swakde\\eclipse-workspace\\Bus_Reservationsystem\\report.csv");
+	        FileWriter fw = new FileWriter(file);
+	        BufferedWriter bw = new BufferedWriter(fw);
+	        bw.write("Booking Summary:");
+	        bw.newLine();
+	        bw.newLine();
+		      
+	        bw.write("Bus Sources"+ "," +"Bus Destination"+","+"Date"+ "," +"Count");
+	        bw.newLine();
+	        for(int i=0;i<sreport.size();i++)
+	        {
+	            bw.write(sreport.get(i++)+","+sreport.get(i++)+","+sreport.get(i++)+","+sreport.get(i));
+	            bw.newLine();
+	            
+	        }
+	        bw.close();
+			}
+
+	       
+
+			
 	    catch (Exception e) { 	
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
 		System.out.println();
+		
+		
+		
 		try {
-			System.out.println("Cancellation Summary :");
-			ResultSet rs = stmt.executeQuery("select bus_source, bus_destionation,cancel_date,count(bus_source) as count from public.\"cancellation_ticket\" group by bus_source,bus_destionation,cancel_date having cancel_date='"+date+"';");
-			while(rs.next()) {
+			Connection c1 = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+			
+	        String sql1 ="select bus_source, bus_destionation,cancel_date,count(bus_source) as count from public.\"cancellation_ticket\" group by bus_source,bus_destionation,cancel_date having cancel_date='"+date+"';";
+	        PreparedStatement s1 = c1.prepareStatement(sql1);
+	        ResultSet rs1=s1.executeQuery();
+	        
+	        ArrayList <String> sreport1=new ArrayList<String>();
+		       
+			while(rs1.next())
+	        {
+	        	sreport1.add(rs1.getString("bus_source"));
+	        	sreport1.add(rs1.getString("bus_destionation"));
+	        	
+	        	sreport1.add(rs1.getString("cancel_date"));
+	        	sreport1.add(rs1.getString("count"));
+	        	
+	        	
+	        	
+	        }
+	        File file1 = new File("C:\\Users\\swakde\\eclipse-workspace\\Bus_Reservationsystem\\cancellation_ticket_file.csv");
+	        FileWriter fw1 = new FileWriter(file1);
+	        BufferedWriter bw1 = new BufferedWriter(fw1);
+	        bw1.write("Cancellation ticket file Summary:");
+	        bw1.newLine();
+	        bw1.newLine();
+		      
+	        bw1.write("Bus Sources"+ "," +"Bus Destination"+","+"Cancel Date"+ "," +"Count");
+	        bw1.newLine();
+	        for(int i=0;i<sreport1.size();i++)
+	        {
+	            bw1.write(sreport1.get(i++)+","+sreport1.get(i++)+","+sreport1.get(i++)+sreport1.get(i));
+	            bw1.newLine();
+	            
+	        }
+	        bw1.close();
+
+			/*while(rs.next()) {
 				System.out.print("Source: "+rs.getString("bus_source"));
 				System.out.print("\tDestination: "+rs.getString("bus_destionation"));
 				System.out.println("\tTicket Cancel Count: "+rs.getString("count"));
-			}
+			}*/
+	        
 		}
 		catch (Exception e) { 	
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -67,6 +193,7 @@ public class Report {
 			// c.setAutoCommit(false);
 		//System.out.println("Databse Successfully Connected.");
 		stmt = c.createStatement();
+		
 		}catch (Exception e) { 	
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
@@ -74,22 +201,68 @@ public class Report {
 		//System.out.println(table +" "+attribute+ " "+sort +" "+ date);
 		try {
 			int i=1;	
-			System.out.println("\n*********Booking Report*********");
-			ResultSet rs = stmt.executeQuery("select * from public.\"booking\" where date='"+ date +"' ORDER BY "+attribute+" "+sort+";");
-			if(!rs.isBeforeFirst()) {
+			
+			
+Connection c3 = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+			
+	        String sql3 ="select * from public.\"booking\" where date='"+ date +"' ORDER BY "+attribute+" "+sort+";";
+	        PreparedStatement s3 = c3.prepareStatement(sql3);
+	        ResultSet rs3=s3.executeQuery();
+	        
+	        ArrayList <String> sreport3=new ArrayList<String>();
+		       
+			while(rs3.next())
+	        {
+	        	sreport3.add(rs3.getString("user_id"));
+	        	sreport3.add(rs3.getString("trans_id"));
+	        	
+	        	sreport3.add(rs3.getString("bus_source"));
+	        	sreport3.add(rs3.getString("bus_destination"));
+	        	sreport3.add(rs3.getString("bus_time"));
+	        	sreport3.add(rs3.getString("bus_fare"));
+	        	sreport3.add(rs3.getString("bus_id"));
+	        	sreport3.add(rs3.getString("bus_number"));
+	        	sreport3.add(rs3.getString("date"));
+	        	
+	        	
+	        	
+	        }
+			if(!rs3.isBeforeFirst()) {
 				System.out.println("\tWe don't have any Booking Today!");
 			}
-			 while (rs.next()) {
+	        File file3 = new File("C:\\Users\\swakde\\eclipse-workspace\\Bus_Reservationsystem\\booking_report_file.csv");
+	        FileWriter fw3 = new FileWriter(file3);
+	        BufferedWriter bw3 = new BufferedWriter(fw3);
+	        bw3.write("\n*********Booking Report*********");
+	        bw3.newLine();
+	        bw3.newLine();
+		      
+	        bw3.write("Bus Sources"+ "," +"Bus Destination"+","+"Cancel Date"+ "," +"Count");
+	        bw3.newLine();
+	        for(int i1=0;i1<sreport3.size();i1++)
+	        {
+	            bw3.write(sreport3.get(i1++)+","+sreport3.get(i1++)+","+sreport3.get(i1++)+","+sreport3.get(i1++)+","+sreport3.get(i1++)+","+sreport3.get(i1++)+","+sreport3.get(i1++)+","+sreport3.get(i1++)+","+sreport3.get(i1));
+	            bw3.newLine();
+	            
+	        }
+	        bw3.close();
+
+/*			 while (rs3.next()) {
 				System.out.print("Sr. No. "+ i++);
 				//System.out.print("\tDate: "+rs.getString("date"));
-				System.out.print("\tBus ID: "+rs.getInt("bus_id"));
-				System.out.print("\tSource: "+rs.getString("bus_source"));
-				System.out.print("\tDestination: "+rs.getString("bus_destination"));
-				System.out.print("\tBus Time: "+rs.getString("bus_time"));
-				System.out.print("\tBus Fare: "+rs.getString("bus_fare"));
-				System.out.print("\tTransaction ID: "+rs.getInt("trans_id"));
-				System.out.println("\tBus Number: "+rs.getString("bus_number"));
+				System.out.print("\tBus ID: "+rs3.getInt("bus_id"));
+				System.out.print("\tSource: "+rs3.getString("bus_source"));
+				System.out.print("\tDestination: "+rs3.getString("bus_destination"));
+				System.out.print("\tBus Time: "+rs3.getString("bus_time"));
+				System.out.print("\tBus Fare: "+rs3.getString("bus_fare"));
+				System.out.print("\tTransaction ID: "+rs3.getInt("trans_id"));
+				System.out.println("\tBus Number: "+rs3.getString("bus_number"));
 			}
+			 
+			
+			 */
+			 
+			 
 			 
 			System.out.println("\n*********Cancellation Report*********");
 			i=1;
@@ -138,6 +311,7 @@ public static void reportt()
 	    System.out.println("4 - Descending sort by Transaction Id");
 	    int sort_option=sc.nextInt();
 	    if(sort_option==1){
+	    	
 	    	show_report("booking","bus_fare","asc",date1);    	
 	    }else if(sort_option==2){			    	
 	    	show_report("booking","bus_fare","desc",date1);    	

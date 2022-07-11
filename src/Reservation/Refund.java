@@ -2,6 +2,7 @@ package Reservation;
 
 import static Reservation.GlobalVariables.*;
 
+
 import java.sql.Connection;
 
 import java.sql.DriverManager;
@@ -12,8 +13,13 @@ import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import java.util.*;
 
-public class Refund {
 
+interface RefundDesign{
+	static void refundd() {};
+}
+
+public class Refund implements RefundDesign {
+	
 	public static void refundd()
 	{
 		Scanner sc=new Scanner(System.in);

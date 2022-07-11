@@ -1,5 +1,13 @@
 package Reservation;
 
+import static Reservation.GlobalVariables.user_dest;
+import static Reservation.GlobalVariables.*;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Scanner;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,8 +24,8 @@ class UsernameException extends Exception {
 
 	
 public class Login {
-	public static int user_id;
-	public static String user_name;
+	//public static int user_id;
+	//public static String user_name;
 	
 		
 		public static  void loginn()
@@ -43,8 +51,6 @@ public class Login {
 			  try {
 			   if(length < 6)
 			    throw new UsernameException("Username must be greater than 6 characters ???");
-			   else
-			    System.out.println("Login Successful !!!");
 			  }
 			  catch (UsernameException u) {
 			   u.printStackTrace();
@@ -55,8 +61,6 @@ public class Login {
 	            			
 				Class.forName("org.postgresql.Driver");
 				c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
-				// c.setAutoCommit(false);
-				System.out.println("Databse Successfully Connected.");
 				stmt = c.createStatement();
 
 				// Uncomment later
