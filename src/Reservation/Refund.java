@@ -36,9 +36,9 @@ public class Refund implements RefundDesign {
 	
 			//GETTING TICKET DETAILD FROM USER ID
 		ResultSet rs1 = stmt.executeQuery("SELECT * FROM public.\"booking\" WHERE user_id="+user_id+" and date='"+date1+"';");
-		if(!rs1.isBeforeFirst()) {		//NEW
-			System.out.println("You Don't have booking history today!");	//NEW
-			System.exit(0);				//NEW
+		if(!rs1.isBeforeFirst()) {		
+			System.out.println("You Don't have booking history today!");	
+			System.exit(0);				
 		}
 		System.out.println("****************Cancelling Your Ticket !****************\n");
 		System.out.println("Please Select Transaction ID of Ticket to Cancel Your Ticket.\n");
@@ -53,12 +53,12 @@ public class Refund implements RefundDesign {
 		}
 		}
 		catch (Exception e) {
-			System.out.println("Invalid Transaction ID");		//Today
+			System.out.println("Invalid Transaction ID");		
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
 		System.out.println("Please Enter Your Transaction ID : ");
-		double t_id=sc.nextInt(); 				//Today
+		double t_id=sc.nextInt(); 				
 		
 		try {
 			Statement stmt =null;
@@ -69,15 +69,15 @@ public class Refund implements RefundDesign {
 	
 			//GETTING TICKET DETAILD FROM TRANSACTION ID
 		ResultSet rs = stmt.executeQuery("SELECT * FROM public.\"booking\" WHERE trans_id="+t_id+";");
-		if(!rs.isBeforeFirst()) {		//NEW
-			System.out.println("Invalid Transaction ID!");	//NEW
-			System.exit(0);				//NEW
+		if(!rs.isBeforeFirst()) {		
+			System.out.println("Invalid Transaction ID!");	
+			System.exit(0);				
 		}
 		while (rs.next()) {
 			tranc_date=rs.getString("date");
 			transaction_id=rs.getInt("trans_id");
 			user_id=rs.getInt("user_id");
-			bus_id=rs.getInt("bus_id");			//Today - maybe
+			bus_id=rs.getInt("bus_id");			 
 			System.out.println("Your Transaction Details are");
 			//System.out.println("Your User Id is:" + rs.getString("user_id"));
 			System.out.println("Your Bus pick location is:" + rs.getString("bus_source"));
@@ -95,7 +95,7 @@ public class Refund implements RefundDesign {
 		
 		}
 		catch (Exception e) {
-			System.out.println("Invalid Transaction ID");		//Today
+			System.out.println("Invalid Transaction ID");		
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
@@ -165,7 +165,6 @@ public class Refund implements RefundDesign {
 			System.exit(0);
 		}
 		
-		//System.out.println("Refund");
 	}
 	
 }

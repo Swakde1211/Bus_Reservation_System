@@ -9,6 +9,7 @@ import static Reservation.GlobalVariables.*;
 public class Cancel_Ticket_History {
 	public static void cancel_ticket_historyy()
 	{
+		//SHOWS CANCEL TICKETS
 		System.out.println("\n****************GETTING Cancel Ticket HISTORY****************\n");
 		try {				
 			int i=1;	

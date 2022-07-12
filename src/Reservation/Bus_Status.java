@@ -13,6 +13,7 @@ public class Bus_Status {
 	public static void bus_statuss()
 	{
 		
+		//SHOWS ALL THE BUSES FROM THAT SOURCE AND DESTINATION
 		Scanner sc=new Scanner(System.in);
 		System.out.println("Enter Your Source :");
 		user_source=sc.next();

@@ -13,16 +13,16 @@ public class Booking_History {
 
 	public static void booking_historyy()
 	{
+		//SHOWS BOOKING HISTORY
 		try {				
 			int i=1;
-	Statement stmt =null;
+			Statement stmt =null;
 			
 			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
 			
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("select * from public.\"booking\" where user_id='"+ user_id +"' order by date asc;");
 			if(!rs.isBeforeFirst()) {
-				//System.out.println(rs.isBeforeFirst());
 				System.out.println("You don't have any Booking history yet!");
 			}
 			while (rs.next()) {
