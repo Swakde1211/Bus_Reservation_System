@@ -50,6 +50,14 @@ public class Login {
 				Class.forName("org.postgresql.Driver");
 				c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
 				stmt = c.createStatement();
+				
+
+				// Checking for admin
+				if(name.equals("adminn") && pass.equals("adminn")) {
+					System.out.println("Admin Login Successful");
+					is_admin=true;
+				}				
+				else {
 				ResultSet rs = stmt.executeQuery("SELECT * FROM public.\"Users\";");
 				
 				while (rs.next()) {
@@ -70,13 +78,17 @@ public class Login {
 						System.exit(0);
 					}
 				}
-
+				}
 			} 
+			
 			catch (Exception e) {
 				System.out.println("Oops Login Again ! ");
 						
 			}
-			
+			if (flag && !is_admin) {
+				System.out.println("Wrong credentials! Please enter details again to Login");
+				System.exit(0);
+			}
 			
 			
 		//	System.out.println("Username -> " + user_name + " And Password is : " + user_id);

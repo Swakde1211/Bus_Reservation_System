@@ -1,4 +1,4 @@
-package Reservation;
+package user;
 
 import java.sql.Statement;
 import static Reservation.GlobalVariables.*;

@@ -1,4 +1,4 @@
-package Reservation;
+package user;
 
 import static Reservation.GlobalVariables.*;
 

@@ -8,6 +8,25 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import static Reservation.GlobalVariables.*;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Scanner;
+
+import admin.admin;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Scanner;
+
+import exceptions.*
+;
+import user.User_Input;	
 
 public class Home {
 	
@@ -16,10 +35,15 @@ public class Home {
 		Login l=new Login();
 		l.loginn();
 		
-		//options given to 
-		User_Input u=new User_Input();
-		u.userinputt();
-	
+		if(is_admin) {
+			admin ad=new admin();
+			ad.adminn();
+		}
+		else {
+			User_Input u=new User_Input();
+			u.userinputt();			
+		}
+		
 		
 	}
 }

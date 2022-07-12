@@ -16,6 +16,7 @@ public class GlobalVariables {
 	public static String tranc_date;
 	public static int transaction_id;
 	public static String bus_type1;
+	public static boolean is_admin=false;
 	
 
 			

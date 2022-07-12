@@ -1,4 +1,4 @@
-package Reservation;
+package user;
 
 import static Reservation.GlobalVariables.bus_id;
 import static Reservation.GlobalVariables.bus_number;
@@ -44,10 +44,33 @@ public class Booking_Process {
 		user_source = Source;
 		System.out.println("Add Destination");
 		String Destination = sc.next();
+		
 		Destination = Destination.substring(0,1).toUpperCase() + Destination.substring(1).toLowerCase();	
 		System.out.println("Drop off Point : "+Destination);		
 		user_dest = Destination;
 
+		try {	
+			Statement stmt =null;		
+			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+						stmt = c.createStatement();
+				ResultSet rs = stmt.executeQuery("select count(*) as count from public.\"bus_info\" where source='"+user_source+"' and destination='"+user_dest+"';");	
+				while (rs.next()) {		
+					String count=rs.getString("count");
+					//System.out.println(count);
+					if(count.equals("0")) {		
+						System.out.println("\nSorry! We Don't Have Buses On Your Route!");	
+						System.exit(0);	
+					}
+					System.out.println("We have "+ rs.getString("count") +" Buses On Your Route");
+				
+				}
+			}
+				catch (Exception e) {
+					System.err.println(e.getClass().getName() + ": " + e.getMessage());
+					// System.exit(0);
+				}
+				
+		
 		//Added age Exception here
 		try {
 			  
