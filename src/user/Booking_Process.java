@@ -193,7 +193,7 @@ public class Booking_Process implements Booking_Process_Design {
 													}
 							System.out.println("Number-" + i + "\tbus_id =" + id + "\tBus number:" + bus_number
 									+ "\tBus Time:" + bus_time + "\tSource: " + source + "\tDestination:" + destination
-									+ "\tTicket Price:" + user_fare + "\tBus Type:" + bus_type);
+									+ "\tTicket Price:" + user_fare + "\tBus Type:" + bus_type+ "\tSeats Available:" + seats_available);
 						
 						i++;
 					} //END OF IF LOOP
@@ -226,7 +226,7 @@ public class Booking_Process implements Booking_Process_Design {
 						}
 							System.out.println("Number-" + i + "\tbus_id =" + id + "\tBus number:" + bus_number
 									+ "\tBus Time:" + bus_time + "\tSource: " + source + "\tDestination:" + destination
-									+ "\tTicket Price:" + user_fare + "\tBus Type:" + bus_type);
+									+ "\tTicket Price:" + user_fare + "\tBus Type:" + bus_type+ "\tSeats Available:" + seats_available);
 						
 						i++;
 					}

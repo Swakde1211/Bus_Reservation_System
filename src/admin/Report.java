@@ -28,7 +28,7 @@ public class Report {
 			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
 				stmt = c.createStatement();
 		}catch (Exception e) { 	
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.err.println(e.getClass().getName() + ":		 " + e.getMessage());
 			System.exit(0);
 		}
 		   //SHOWS COUNT OF BOOKING TABLE & GENERATE CSV FILE
