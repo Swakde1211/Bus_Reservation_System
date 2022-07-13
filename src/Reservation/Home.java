@@ -30,7 +30,7 @@ import user.User_Input;
 
 public class Home {
 	
-	public static void main(String args[]) {
+	public static void main(String args[]) throws Exception {
 		// class for login of users
 		Login l=new Login();
 		l.loginn();

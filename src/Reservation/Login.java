@@ -6,8 +6,11 @@ import static Reservation.GlobalVariables.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
+
+import database.Conn;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,7 +22,7 @@ import exceptions.*
 ;	
 public class Login {
 		
-		public static  void loginn()
+		public static  void loginn() throws Exception
 		{
 			
 			
@@ -47,8 +50,10 @@ public class Login {
 				 
 			try {
 	            			
-				Class.forName("org.postgresql.Driver");
-				c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+				
+				Conn conn = Conn.getConnection();
+				c = conn.getDBConnection();
+			
 				stmt = c.createStatement();
 				
 
@@ -64,6 +69,8 @@ public class Login {
 					int id = rs.getInt("id");
 					String username = rs.getString("username");
 					String password = rs.getString("password");
+					System.out.println(username+" "+name);
+					System.out.println(password+" "+pass);
 					if (username.equals(name) && password.equals(pass)) {
 						System.out.println("Successfully Logged In");
 						user_id = id;

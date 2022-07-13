@@ -20,7 +20,7 @@ public class View_booking_summary {
 	public void truncate_table() {
 		try {
 			Class.forName("org.postgresql.Driver");
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "June@2022");
 			String sql3 ="TRUNCATE TABLE public.\"view_summary\";";
             PreparedStatement s = c.prepareStatement(sql3);
             s.executeUpdate();
@@ -36,7 +36,7 @@ public class View_booking_summary {
 		//System.out.println(date);
 		try {
 			Class.forName("org.postgresql.Driver");
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "June@2022");
 			stmt = c.createStatement();
 			
 			System.out.print(date);
@@ -75,7 +75,7 @@ public class View_booking_summary {
 		try {
 			System.out.print("Date : "+date+" ");
 			Class.forName("org.postgresql.Driver");
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "June@2022");
 			stmt = c.createStatement();
 			ResultSet rs1 = stmt.executeQuery("SELECT SUM(CAST(bus_fare AS int)) as summ, count(*) as count FROM public.\"cancellation_ticket\" where cancel_date='"+date+"'");			
 			while (rs1.next()) {
