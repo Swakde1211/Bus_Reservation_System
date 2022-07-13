@@ -15,9 +15,9 @@ import static Reservation.GlobalVariables.user_source;
 import java.sql.*;
 import java.util.Scanner;
 
-import exceptions.*
-;
-public class Booking_Process {
+import exceptions.*;
+
+public class Booking_Process implements Booking_Process_Design {
 
 	
 	public static void printMenu(String[] options) {
@@ -296,7 +296,8 @@ public class Booking_Process {
 		
 		//BOOKING SPECIFIC BUS  
 		
-		try {	Statement stmt =null;
+		try {	
+		Statement stmt =null;
 		
 		Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
 		

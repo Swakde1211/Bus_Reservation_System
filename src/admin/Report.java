@@ -1,3 +1,10 @@
+//add name of user in all csv files -DONE
+//add date in csv title - DONE
+//logic hai ahe ki jo parynta rows ahet to paryanta count karaycha...
+//interface -DONE
+//time include in csv -DONE
+
+
 package admin;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -27,7 +34,8 @@ public class Report {
 		   //SHOWS COUNT OF BOOKING TABLE & GENERATE CSV FILE
 		
 		try {
-			
+			String booking_sum1;
+			String count1;
 			
 			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
 			
@@ -37,10 +45,12 @@ public class Report {
 	        
 			
 			
-			ArrayList <String> sreport=new ArrayList<String>();
-	       
+	        ArrayList <String> sreport=new ArrayList<String>();
+	        String date_to_print1="";
+	      
 			while(rs.next())
 	        {
+				date_to_print1=rs.getString("date");
 	        	sreport.add(rs.getString("bus_source"));
 	        	sreport.add(rs.getString("bus_destination"));
 	        	
@@ -50,7 +60,24 @@ public class Report {
 	        	
 	        	
 	        }
-	        File file = new File("C:\\Users\\swakde\\eclipse-workspace\\Bus_Reservationsystem\\booking_summary_report.csv");
+			
+			
+			ResultSet rs1 = stmt.executeQuery("SELECT SUM(CAST(bus_fare AS int)) as summ, count(*) as count FROM public.\"booking\" where date='"+date+"'");			
+			while (rs1.next()) {
+				booking_sum1=rs1.getString("summ");
+				count1=rs1.getString("count");
+			
+				
+				sreport.add(rs1.getString(booking_sum1));
+	        	sreport.add(rs1.getString(count1));
+	        	
+			}
+			
+			
+					
+			
+			
+	        File file = new File("C:\\Users\\swakde\\eclipse-workspace\\Bus_Reservationsystem\\booking_summary_report"+date_to_print1+".csv");
 	        FileWriter fw = new FileWriter(file);
 	        BufferedWriter bw = new BufferedWriter(fw);
 	        bw.write("Booking Summary:");
@@ -88,7 +115,8 @@ public class Report {
 	        ResultSet rs1=s1.executeQuery();
 	        
 	        ArrayList <String> sreport1=new ArrayList<String>();
-		       
+	        String date_to_print2="";
+
 			while(rs1.next())
 	        {
 	        	sreport1.add(rs1.getString("bus_source"));
@@ -97,10 +125,11 @@ public class Report {
 	        	sreport1.add(rs1.getString("cancel_date"));
 	        	sreport1.add(rs1.getString("count"));
 	        	
-	        	
+	        	date_to_print2=rs1.getString("cancel_date");
 	        	
 	        }
-	        File file1 = new File("C:\\Users\\swakde\\eclipse-workspace\\Bus_Reservationsystem\\cancellation_ticket_file.csv");
+			
+	        File file1 = new File("C:\\Users\\swakde\\eclipse-workspace\\Bus_Reservationsystem\\Cancellation_ticket_file"+date_to_print2+".csv");
 	        FileWriter fw1 = new FileWriter(file1);
 	        BufferedWriter bw1 = new BufferedWriter(fw1);
 	        bw1.write("Cancellation ticket file Summary:");
@@ -111,7 +140,7 @@ public class Report {
 	        bw1.newLine();
 	        for(int i=0;i<sreport1.size();i++)
 	        {
-	            bw1.write(sreport1.get(i++)+","+sreport1.get(i++)+","+sreport1.get(i++)+sreport1.get(i));
+	            bw1.write(sreport1.get(i++)+","+sreport1.get(i++)+","+sreport1.get(i++)+","+sreport1.get(i));
 	            bw1.newLine();
 	            
 	        }
@@ -158,10 +187,29 @@ public class Report {
 	        if(!rs3.isBeforeFirst()) {
 				System.out.println("\tWe don't have any Booking Today!");
 			}
+	        String date_to_print3="";
+	        String user_name1="";
+			
 	        
-			while(rs3.next())
+	        while(rs3.next())
 	        {
+				
 	        	sreport3.add(rs3.getString("user_id"));
+	        	String n=rs3.getString("user_id");
+	        	try {
+        			
+	    			ResultSet rs = stmt.executeQuery("SELECT * FROM public.\"Users\" where id="+n+";");
+	    			while (rs.next()) {
+	    				//int id = rs.getInt("id");
+	    				String username = rs.getString("username");
+	    				sreport3.add(rs.getString("username"));
+	    	        	
+	    } }catch (Exception e) {
+	    			//System.err.println(e.getClass().getName() + ": " + e.getMessage());
+	    			System.out.println("Oops! ");
+	    			//System.exit(0);
+	    		}
+	        	
 	        	sreport3.add(rs3.getString("trans_id"));
 	        	
 	        	sreport3.add(rs3.getString("bus_source"));
@@ -171,11 +219,11 @@ public class Report {
 	        	sreport3.add(rs3.getString("bus_id"));
 	        	sreport3.add(rs3.getString("bus_number"));
 	        	sreport3.add(rs3.getString("date"));
-	        	
+	        	date_to_print3=rs3.getString("date");
 	        	
 	        	
 	        }
-			File file3 = new File("C:\\Users\\swakde\\eclipse-workspace\\Bus_Reservationsystem\\booking_report_file.csv");
+			File file3 = new File("C:\\Users\\swakde\\eclipse-workspace\\Bus_Reservationsystem\\booking_report_file"+date_to_print3+".csv");
 	        FileWriter fw3 = new FileWriter(file3);
 	        BufferedWriter bw3 = new BufferedWriter(fw3);
 	        bw3.write("\n*********Booking Report*********");
@@ -186,7 +234,7 @@ public class Report {
 	        bw3.newLine();
 	        for(int i1=0;i1<sreport3.size();i1++)
 	        {
-	            bw3.write(sreport3.get(i1++)+","+sreport3.get(i1++)+","+sreport3.get(i1++)+","+sreport3.get(i1++)+","+sreport3.get(i1++)+","+sreport3.get(i1++)+","+sreport3.get(i1++)+","+sreport3.get(i1++)+","+sreport3.get(i1));
+	            bw3.write(sreport3.get(i1++)+","+sreport3.get(i1++)+","+sreport3.get(i1++)+","+sreport3.get(i1++)+","+sreport3.get(i1++)+","+sreport3.get(i1++)+","+sreport3.get(i1++)+","+sreport3.get(i1++)+","+sreport3.get(i1++)+","+sreport3.get(i1));
 	            bw3.newLine();
 	            
 	        }
@@ -201,15 +249,32 @@ public class Report {
 	        String sql4 ="select * from public.\"cancellation_ticket\" where cancel_date='"+ date +"' ORDER BY "+attribute+" "+sort+";";
 	        PreparedStatement s4 = c4.prepareStatement(sql4);
 	        ResultSet rs4=s4.executeQuery();
-	        
+	        String date_to_print4="";
 	        ArrayList <String> sreport4=new ArrayList<String>();
 	        if(!rs4.isBeforeFirst()) {
 				System.out.println("\tWe don't have any Cancellation Today!");
 			}
+	        String user_name2="";
 			
 			while(rs4.next())
 	        {
 	        	sreport4.add(rs4.getString("user_id"));
+	        	String n1=rs4.getString("user_id");
+	        	try {
+        			
+	    			ResultSet rs9 = stmt.executeQuery("SELECT * FROM public.\"Users\" where id="+n1+";");
+	    			while (rs9.next()) {
+	    				//int id = rs.getInt("id");
+	    				String username = rs9.getString("username");
+	    				sreport4.add(rs9.getString("username"));
+	    	        	
+	    } }catch (Exception e) {
+	    			//System.err.println(e.getClass().getName() + ": " + e.getMessage());
+	    			System.out.println("Oops! ");
+	    			//System.exit(0);
+	    		}
+	        	
+	        	
 	        	sreport4.add(rs4.getString("trans_id"));
 	        	
 	        	sreport4.add(rs4.getString("bus_source"));
@@ -221,11 +286,11 @@ public class Report {
 	        	sreport4.add(rs4.getString("ticket_date"));
 	        	sreport4.add(rs4.getString("cancel_date"));
 	        	
-	        	
+	        	date_to_print4=rs4.getString("cancel_date");
 	        	
 	        	
 	        }
-			File file4 = new File("C:\\Users\\swakde\\eclipse-workspace\\Bus_Reservationsystem\\cancellation_report_file.csv");
+			File file4 = new File("C:\\Users\\swakde\\eclipse-workspace\\Bus_Reservationsystem\\cancellation_report_file"+date_to_print4+".csv");
 	        FileWriter fw4 = new FileWriter(file4);
 	        BufferedWriter bw4 = new BufferedWriter(fw4);
 	        bw4.write("\n*********Cancellation Report*********");
@@ -236,7 +301,7 @@ public class Report {
 	           bw4.newLine();
 	        for(int i2=0;i2<sreport4.size();i2++)
 	        {
-	            bw4.write(sreport4.get(i2++)+","+sreport4.get(i2++)+","+sreport4.get(i2++)+","+sreport4.get(i2++)+","+sreport4.get(i2++)+","+sreport4.get(i2++)+","+sreport4.get(i2++)+","+sreport4.get(i2++)+","+sreport4.get(i2++)+","+sreport4.get(i2));
+	            bw4.write(sreport4.get(i2++)+","+sreport4.get(i2++)+","+sreport4.get(i2++)+","+sreport4.get(i2++)+","+sreport4.get(i2++)+","+sreport4.get(i2++)+","+sreport4.get(i2++)+","+sreport4.get(i2++)+","+sreport4.get(i2++)+","+sreport4.get(i2++)+","+sreport4.get(i2));
 	            bw4.newLine();
 	            
 	        }

@@ -43,13 +43,14 @@ public class Refund implements RefundDesign {
 		System.out.println("****************Cancelling Your Ticket !****************\n");
 		System.out.println("Please Select Transaction ID of Ticket to Cancel Your Ticket.\n");
 		while (rs1.next()) {
-			System.out.print("Transaction ID: "+rs1.getInt("trans_id"));
+			System.out.print("PNR NO: "+rs1.getInt("trans_id"));
 			System.out.print("\tBus ID: "+rs1.getInt("bus_id"));
 			System.out.print("\tBus Souce: "+rs1.getString("bus_source"));
 			System.out.print("\tBus Destination: "+rs1.getString("bus_destination"));
 			System.out.print("\tBus Time: "+rs1.getString("bus_time"));
 			System.out.print("\tBus Fare: "+rs1.getString("bus_fare"));
-			System.out.println("\tBus Number: "+rs1.getString("bus_number"));
+			System.out.print("\tBus Number: "+rs1.getString("bus_number"));
+			System.out.println("Booking Date: "+rs1.getString("date"));
 		}
 		}
 		catch (Exception e) {
@@ -90,6 +91,7 @@ public class Refund implements RefundDesign {
 			bus_time=rs.getString("bus_time");
 			System.out.println("Your Bus fare is:" + rs.getString("bus_fare"));
 			user_fare= Integer.parseInt(rs.getString("bus_fare"));
+			
 			
 		}
 		

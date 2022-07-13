@@ -1,6 +1,0 @@
-
-*********Cancellation Report*********
-
-User id,Trans_id,Bus Sources,Bus Destination,Bus time, Bus fare,Bus ID,Bus Number,Ticket Date,Cancel Date
-0,1029,Panvel,Powai,1.0,350,103,MH401035,2022-07-11,2022-07-11
-1,1031,Panvel,Powai,5.00,350,103,MH401035,2022-07-11,2022-07-11
