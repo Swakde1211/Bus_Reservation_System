@@ -1,6 +1,6 @@
 //add name of user in all csv files -DONE
 //add date in csv title - DONE
-//logic hai ahe ki jo parynta rows ahet to paryanta count karaycha...
+//logic hai ahe ki jo parynta rows ahet to paryanta count karaycha... -DONE
 //interface -DONE
 //time include in csv -DONE
 
@@ -52,35 +52,34 @@ public class Report {
 	        {
 				date_to_print1=rs.getString("date");
 	        	sreport.add(rs.getString("bus_source"));
-	        	sreport.add(rs.getString("bus_destination"));
-	        	
+	        	sreport.add(rs.getString("bus_destination"));	
 	        	sreport.add(rs.getString("date"));
 	        	sreport.add(rs.getString("count"));
 	        	
 	        	
 	        	
 	        }
-			
-			
-			ResultSet rs1 = stmt.executeQuery("SELECT SUM(CAST(bus_fare AS int)) as summ, count(*) as count FROM public.\"booking\" where date='"+date+"'");			
+			int booking_count=0;
+			int booking_amount=0;
+			ResultSet rs1 = stmt.executeQuery("SELECT booking_count,booking_amount FROM public.\"view_summary\" where date='"+date_to_print1+"';");
 			while (rs1.next()) {
-				booking_sum1=rs1.getString("summ");
-				count1=rs1.getString("count");
-			
+				booking_count=rs1.getInt("booking_count");
+				booking_amount=rs1.getInt("booking_amount");
 				
-				sreport.add(rs1.getString(booking_sum1));
-	        	sreport.add(rs1.getString(count1));
-	        	
-			}
-			
-			
+				
+				}
 					
 			
 			
-	        File file = new File("C:\\Users\\swakde\\eclipse-workspace\\Bus_Reservationsystem\\booking_summary_report"+date_to_print1+".csv");
+	        File file = new File("C:\\Users\\swakde\\eclipse-workspace\\Bus_Reservationsystem\\booking_summary_report_"+date_to_print1+".csv");
 	        FileWriter fw = new FileWriter(file);
 	        BufferedWriter bw = new BufferedWriter(fw);
-	        bw.write("Booking Summary:");
+	    
+	        bw.write("DATE IS :"+date_to_print1);
+
+	        bw.newLine();
+	        bw.write("***********Booking Summary**************");
+	        
 	        bw.newLine();
 	        bw.newLine();
 		      
@@ -92,6 +91,15 @@ public class Report {
 	            bw.newLine();
 	            
 	        }
+	        bw.newLine();
+	        bw.newLine();
+		    
+	    	bw.write("BOOKING AMOUNT IS :"+booking_amount);
+	    	bw.newLine();
+		       
+	    	bw.write("BOOKING COUNT IS :"+booking_count);
+
+	        
 	        bw.close();
 			}
 
@@ -128,11 +136,25 @@ public class Report {
 	        	date_to_print2=rs1.getString("cancel_date");
 	        	
 	        }
+			int cancellation_count=0;
+			int cancellation_amount=0;
+			ResultSet rs2 = stmt.executeQuery("SELECT cancellation_count,cancellation_amount FROM public.\"view_summary\" where date='"+date_to_print2+"';");
+			while (rs2.next()) {
+				cancellation_count=rs2.getInt("cancellation_count");
+				cancellation_amount=rs2.getInt("cancellation_amount");
+				
+				
+				}
 			
-	        File file1 = new File("C:\\Users\\swakde\\eclipse-workspace\\Bus_Reservationsystem\\Cancellation_ticket_file"+date_to_print2+".csv");
+			
+	        File file1 = new File("C:\\Users\\swakde\\eclipse-workspace\\Bus_Reservationsystem\\Cancellation_ticket_file_"+date_to_print2+".csv");
 	        FileWriter fw1 = new FileWriter(file1);
 	        BufferedWriter bw1 = new BufferedWriter(fw1);
-	        bw1.write("Cancellation ticket file Summary:");
+	        bw1.write("DATE IS :"+date_to_print2);
+
+	        bw1.newLine();
+	        bw1.write("***********Cancellation Summary**************");
+	        
 	        bw1.newLine();
 	        bw1.newLine();
 		      
@@ -144,6 +166,15 @@ public class Report {
 	            bw1.newLine();
 	            
 	        }
+	        bw1.newLine();
+	        bw1.newLine();
+		    
+	    	bw1.write("CANCELLATION AMOUNT IS :"+cancellation_amount);
+	    	bw1.newLine();
+		       
+	    	bw1.write("CANCELLATION COUNT IS :"+cancellation_count);
+
+
 	        bw1.close();
 
 		    
@@ -191,6 +222,12 @@ public class Report {
 	        String user_name1="";
 			
 	        
+		
+	        
+	        
+	        
+	        
+	        
 	        while(rs3.next())
 	        {
 				
@@ -221,15 +258,32 @@ public class Report {
 	        	sreport3.add(rs3.getString("date"));
 	        	date_to_print3=rs3.getString("date");
 	        	
-	        	
+
+		        
+		    			
+					
 	        }
+	        int booking_count1=0;
+			ResultSet rs1 = stmt.executeQuery("SELECT booking_count FROM public.\"view_summary\" where date='"+date_to_print3+"';");
+			while (rs1.next()) {
+				booking_count1=rs1.getInt("booking_count");
+				
+				
+				}
+			
+			
 			File file3 = new File("C:\\Users\\swakde\\eclipse-workspace\\Bus_Reservationsystem\\booking_report_file"+date_to_print3+".csv");
 	        FileWriter fw3 = new FileWriter(file3);
 	        BufferedWriter bw3 = new BufferedWriter(fw3);
-	        bw3.write("\n*********Booking Report*********");
+	      
+	        bw3.write("DATE IS :"+date_to_print3);
+
+	        bw3.newLine();
+	        bw3.write("***********Booking Summary**************");
+	        
 	        bw3.newLine();
 	        bw3.newLine();
-		      
+
 	        bw3.write("User id"+","+"Trans_id"+","+"Bus Sources"+ "," +"Bus Destination"+","+"Bus time"+ "," +" Bus fare"+","+"Bus ID"+","+"Bus Number"+","+"Date");
 	        bw3.newLine();
 	        for(int i1=0;i1<sreport3.size();i1++)
@@ -238,6 +292,16 @@ public class Report {
 	            bw3.newLine();
 	            
 	        }
+	        
+	        bw3.newLine();
+	        bw3.newLine();
+		    
+	    	bw3.newLine();
+		       
+	    	bw3.write("BOOKING COUNT IS :"+booking_count1);
+
+	        
+
 	        bw3.close();
 
 			 
@@ -290,12 +354,26 @@ public class Report {
 	        	
 	        	
 	        }
+			int cancellation_count1=0;
+			ResultSet rs2 = stmt.executeQuery("SELECT cancellation_count FROM public.\"view_summary\" where date='"+date_to_print3+"';");
+			while (rs2.next()) {
+				cancellation_count1=rs2.getInt("cancellation_count");
+				
+				
+				}
+			
 			File file4 = new File("C:\\Users\\swakde\\eclipse-workspace\\Bus_Reservationsystem\\cancellation_report_file"+date_to_print4+".csv");
 	        FileWriter fw4 = new FileWriter(file4);
 	        BufferedWriter bw4 = new BufferedWriter(fw4);
+	        
+	        bw4.write("DATE IS :"+date_to_print3);
+
+	        bw4.newLine();
 	        bw4.write("\n*********Cancellation Report*********");
+	        
 	        bw4.newLine();
 	        bw4.newLine();
+
 		      
 	        bw4.write("User id"+","+"Trans_id"+","+"Bus Sources"+ "," +"Bus Destination"+","+"Bus time"+ "," +" Bus fare"+","+"Bus ID"+","+"Bus Number"+","+"Ticket Date"+","+"Cancel Date");
 	           bw4.newLine();
@@ -305,6 +383,15 @@ public class Report {
 	            bw4.newLine();
 	            
 	        }
+	        bw4.newLine();
+	        bw4.newLine();
+		    
+	    	bw4.newLine();
+		       
+	    	bw4.write("CANCELLATION COUNT IS :"+cancellation_count1);
+
+	        
+
 	        bw4.close();
 
 			
