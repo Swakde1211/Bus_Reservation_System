@@ -2,6 +2,9 @@ package admin;
 
 import java.beans.Statement;
 import java.util.Scanner;
+
+import database.Conn;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -19,8 +22,12 @@ public class Add_bus {
 		int bus_id=0;
 		
 		try {
-			Class.forName("org.postgresql.Driver");
-			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+			///Class.forName("org.postgresql.Driver");
+		//	c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+			
+			Conn conn = Conn.getConnection();
+			c = conn.getDBConnection();
+			
 			System.out.println("DB connection successful");
 			}catch (Exception e) {
 				System.out.println("Oops! Database Connection Failed");
@@ -84,9 +91,13 @@ public class Add_bus {
 		//Handle exception for character
 		
 		try {
-			Class.forName("org.postgresql.Driver");
-			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");			String sql2 ="INSERT INTO public.\"bus_info\"(bus_id, bus_number, bus_fare, source, destination, bus_time, bus_type, seats_available) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
-            PreparedStatement s = c.prepareStatement(sql2);	
+//			Class.forName("org.postgresql.Driver");
+		//	c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");			
+			String sql2 ="INSERT INTO public.\"bus_info\"(bus_id, bus_number, bus_fare, source, destination, bus_time, bus_type, seats_available) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+			Conn conn = Conn.getConnection();
+			c = conn.getDBConnection();
+
+			PreparedStatement s = c.prepareStatement(sql2);	
             s.setInt(1, bus_id);
 			s.setString(2, bus_number);
 			s.setString(3, bus_fare);

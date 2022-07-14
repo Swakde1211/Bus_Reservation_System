@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Scanner;
 
+import database.Conn;
+
 public class delete_bus {
 	Statement stmt =null;
 	Connection c=null;
@@ -18,8 +20,11 @@ public class delete_bus {
 		Scanner sc=new Scanner(System.in);
 		//System.out.println("Inside delete bus");
 		try {
-		Class.forName("org.postgresql.Driver");
-		c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");		System.out.println("DB connection successful");
+		//Class.forName("org.postgresql.Driver");
+		//c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");		System.out.println("DB connection successful");
+			Conn conn = Conn.getConnection();
+			c = conn.getDBConnection();
+
 		}catch (Exception e) {
 			System.out.println("Oops! Database Connection Failed");
 		}

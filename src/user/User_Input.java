@@ -43,7 +43,7 @@ public class User_Input {
 				
 				do {						
 				System.out.println("\nChoose the option");
-				String[] choose = { "1 - Book a Ticket", "2 - Cancel My Ticket", "3 - Check Bus Status", "4 - Booking History", "5 - Cancellation History" , "6 - Exit" }; 
+				String[] choose = { "1 - Book a Ticket", "2 - Cancel My Ticket", "3 - Check Bus Status", "4 - View History", "5 - Exit" }; 
 				printMenu(choose);
 				
 				choose_option = scanner.nextInt();
@@ -76,16 +76,17 @@ public class User_Input {
 				
 				else if(choose_option == 4) {	
 					
-					System.out.println("****************GETTING BOOKING HISTORY****************");
-					Booking_History bh=new Booking_History();
-					bh.booking_historyy();
+					View_History bh=new View_History();
+					bh.view_history();
 					
-				} else if(choose_option == 5) {
-					
-					Cancel_Ticket_History cth=new Cancel_Ticket_History();
-					cth.cancel_ticket_historyy();
-					
-				} else if (choose_option == 6) {
+			} 
+//					else if(choose_option == 5) {
+//					
+//					Cancel_Ticket_History cth=new Cancel_Ticket_History();
+//					cth.cancel_ticket_historyy();
+//					
+//				} 
+				else if (choose_option == 5) {
 					System.out.println("Exit");
 					System.exit(0);
 				} 
@@ -93,7 +94,7 @@ public class User_Input {
 					System.out.println("Please Enter Valid Choice !\n");
 				}
 
-				 }while(choose_option!=6);
+				 }while(choose_option!=5);
 			}
 				catch( InputMismatchException e){
 				//System.out.println(exp) ;

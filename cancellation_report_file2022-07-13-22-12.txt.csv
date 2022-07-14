@@ -3,8 +3,10 @@ DATE IS :2022-07-13
 *********Cancellation Report*********
 
 User id,Trans_id,Bus Sources,Bus Destination,Bus time, Bus fare,Bus ID,Bus Number,Ticket Date,Cancel Date
+1,Shivani,1048,Panvel,Nerul,02:00:00,315,114,MH2190,2022-07-13,2022-07-13
+1,Shivani,1049,Panvel,Powai,05:30:00,315,113,MH3150,2022-07-13,2022-07-13
 1,Shivani,1047,Panvel,Powai,04:30:00,350,103,MH401035,2022-07-13,2022-07-13
 
 
 
-CANCELLATION COUNT IS :1
+CANCELLATION COUNT IS :3

@@ -10,6 +10,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.sql.Connection;
+import java.text.Format;
 import java.text.SimpleDateFormat;  	//Update
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,6 +19,8 @@ import java.sql.Statement;
 //update
 import java.util.*;
 
+import database.Conn;
+
 public class Report {
 	public static void max_booking(String date) {
 		Statement stmt =null;
@@ -25,8 +28,12 @@ public class Report {
 		   //GENERATING MAX BOOKING TABLE
 		try {
 			Class.forName("org.postgresql.Driver");
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
-				stmt = c.createStatement();
+			Connection c =null ;
+			//DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+			Conn conn = Conn.getConnection();
+			c = conn.getDBConnection();
+	
+			stmt = c.createStatement();
 		}catch (Exception e) { 	
 			System.err.println(e.getClass().getName() + ":		 " + e.getMessage());
 			System.exit(0);
@@ -37,8 +44,11 @@ public class Report {
 			String booking_sum1;
 			String count1;
 			
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
-			
+			//Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+			Connection c=null;
+			Conn conn = Conn.getConnection();
+			c = conn.getDBConnection();
+
 	        String sql ="select bus_source, bus_destination,date,count(bus_source) as count from public.\"booking\" group by bus_source,bus_destination,date having date='"+date+"';";
 	        PreparedStatement s = c.prepareStatement(sql);
 	        ResultSet rs=s.executeQuery();
@@ -69,9 +79,10 @@ public class Report {
 				
 				}
 					
-			
-			
-	        File file = new File("C:\\Users\\swakde\\eclipse-workspace\\Bus_Reservationsystem\\booking_summary_report_"+date_to_print1+".csv");
+		String fileName = new SimpleDateFormat("yyyyMMddHHmm'.txt'").format(new Date());
+		fileName = fileName.replaceAll("(\\d{4})(\\d{2})(\\d{2})(\\d{2})(\\d{2})", "$1-$2-$3-$4-$5");
+
+		File file = new File("C:\\Users\\swakde\\eclipse-workspace\\Bus_Reservationsystem\\booking_summary_report_"+fileName+".csv");
 	        FileWriter fw = new FileWriter(file);
 	        BufferedWriter bw = new BufferedWriter(fw);
 	    
@@ -94,6 +105,7 @@ public class Report {
 	        bw.newLine();
 	        bw.newLine();
 		    
+	        
 	    	bw.write("BOOKING AMOUNT IS :"+booking_amount);
 	    	bw.newLine();
 		       
@@ -116,8 +128,11 @@ public class Report {
 		   //SHOWS COUNT OF CANCELLATION TABLE & GENERATE CSV FILE
 		
 		try {
-			Connection c1 = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
-			
+			//Connection c1 = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+			Connection c1=null;
+			Conn conn = Conn.getConnection();
+			c1 = conn.getDBConnection();
+
 	        String sql1 ="select bus_source, bus_destionation,cancel_date,count(bus_source) as count from public.\"cancellation_ticket\" group by bus_source,bus_destionation,cancel_date having cancel_date='"+date+"';";
 	        PreparedStatement s1 = c1.prepareStatement(sql1);
 	        ResultSet rs1=s1.executeQuery();
@@ -146,8 +161,10 @@ public class Report {
 				
 				}
 			
-			
-	        File file1 = new File("C:\\Users\\swakde\\eclipse-workspace\\Bus_Reservationsystem\\Cancellation_ticket_file_"+date_to_print2+".csv");
+			String fileName = new SimpleDateFormat("yyyyMMddHHmm'.txt'").format(new Date());
+			fileName = fileName.replaceAll("(\\d{4})(\\d{2})(\\d{2})(\\d{2})(\\d{2})", "$1-$2-$3-$4-$5");
+
+	        File file1 = new File("C:\\Users\\swakde\\eclipse-workspace\\Bus_Reservationsystem\\Cancellation_ticket_file_"+fileName+".csv");
 	        FileWriter fw1 = new FileWriter(file1);
 	        BufferedWriter bw1 = new BufferedWriter(fw1);
 	        bw1.write("DATE IS :"+date_to_print2);
@@ -191,9 +208,12 @@ public class Report {
 
 		
 		try {
-			Class.forName("org.postgresql.Driver");
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
-			
+		//	Class.forName("org.postgresql.Driver");
+			//Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+			Connection c=null;
+			Conn conn = Conn.getConnection();
+			c = conn.getDBConnection();
+
 			
 		stmt = c.createStatement();
 		
@@ -208,8 +228,11 @@ public class Report {
 			int i=1;	
 			
 			
-			Connection c3 = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
-			
+			//Connection c3 = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+			Connection c3=null;
+			Conn conn = Conn.getConnection();
+			c3 = conn.getDBConnection();
+
 	        String sql3 ="select * from public.\"booking\" where date='"+ date +"' ORDER BY "+attribute+" "+sort+";";
 	        PreparedStatement s3 = c3.prepareStatement(sql3);
 	        ResultSet rs3=s3.executeQuery();
@@ -270,9 +293,11 @@ public class Report {
 				
 				
 				}
+			String fileName = new SimpleDateFormat("yyyyMMddHHmm'.txt'").format(new Date());
+			fileName = fileName.replaceAll("(\\d{4})(\\d{2})(\\d{2})(\\d{2})(\\d{2})", "$1-$2-$3-$4-$5");
+
 			
-			
-			File file3 = new File("C:\\Users\\swakde\\eclipse-workspace\\Bus_Reservationsystem\\booking_report_file"+date_to_print3+".csv");
+			File file3 = new File("C:\\Users\\swakde\\eclipse-workspace\\Bus_Reservationsystem\\booking_report_file"+fileName+".csv");
 	        FileWriter fw3 = new FileWriter(file3);
 	        BufferedWriter bw3 = new BufferedWriter(fw3);
 	      
@@ -308,8 +333,11 @@ public class Report {
 	 	   //SORT OF CANCELLATION TABLE & GENERATE CSV FILE
 	    	
 			i=1;
-			Connection c4 = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
-			
+			//Connection c4 = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+			Connection c4=null;
+			Conn connn = Conn.getConnection();
+			c4 = connn.getDBConnection();
+
 	        String sql4 ="select * from public.\"cancellation_ticket\" where cancel_date='"+ date +"' ORDER BY "+attribute+" "+sort+";";
 	        PreparedStatement s4 = c4.prepareStatement(sql4);
 	        ResultSet rs4=s4.executeQuery();
@@ -361,8 +389,10 @@ public class Report {
 				
 				
 				}
-			
-			File file4 = new File("C:\\Users\\swakde\\eclipse-workspace\\Bus_Reservationsystem\\cancellation_report_file"+date_to_print4+".csv");
+			String fileName1 = new SimpleDateFormat("yyyyMMddHHmm'.txt'").format(new Date());
+			fileName1 = fileName1.replaceAll("(\\d{4})(\\d{2})(\\d{2})(\\d{2})(\\d{2})", "$1-$2-$3-$4-$5");
+
+			File file4 = new File("C:\\Users\\swakde\\eclipse-workspace\\Bus_Reservationsystem\\cancellation_report_file"+fileName1+".csv");
 	        FileWriter fw4 = new FileWriter(file4);
 	        BufferedWriter bw4 = new BufferedWriter(fw4);
 	        

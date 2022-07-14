@@ -8,13 +8,19 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Scanner;
 
+import database.Conn;
+
 public class Edit_bus_info {
 	public void edit_bus_detils(String Column_name, String Column_value) {
 		System.out.println("You Called "+ Column_name);
 		try {
 			Statement stmt =null;		
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");					
-					stmt = c.createStatement();
+			Connection c =null;
+			//c= DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");					
+			Conn conn = Conn.getConnection();
+			c = conn.getDBConnection();
+	
+			stmt = c.createStatement();
 					stmt.execute("UPDATE public.\"bus_info\" SET "+ Column_name+"='"+Column_value+"' WHERE bus_id=" + user_input + "");
 					// System.out.println(rs.getFetchSize());
 					System.out.println("Bus Information Updated Successfully !");
@@ -31,8 +37,11 @@ public class Edit_bus_info {
 		Scanner sc=new Scanner(System.in);
 			//System.out.println("Inside delete bus");
 			try {
-			Class.forName("org.postgresql.Driver");
-			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");			System.out.println("DB connection successful");
+			//Class.forName("org.postgresql.Driver");
+			//c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");			System.out.println("DB connection successful");
+				Conn conn = Conn.getConnection();
+				c = conn.getDBConnection();
+
 			}catch (Exception e) {
 				System.out.println("Oops! Database Connection Failed");
 			}

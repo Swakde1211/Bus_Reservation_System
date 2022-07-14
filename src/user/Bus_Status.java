@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Scanner;
 
+import database.Conn;
+
 public class Bus_Status {
 	public static void bus_statuss()
 	{
@@ -25,7 +27,11 @@ public class Bus_Status {
 		
 		
 		try {		
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+			//Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+Connection c = null;
+			
+			Conn conn = Conn.getConnection();
+			c = conn.getDBConnection();
 			
 			Statement stmt =null;
 			

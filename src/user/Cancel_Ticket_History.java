@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+
+import database.Conn;
+
 import static Reservation.GlobalVariables.*;
 
 public class Cancel_Ticket_History {
@@ -15,7 +18,11 @@ public class Cancel_Ticket_History {
 			int i=1;	
 			Statement stmt =null;
 			
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+			//Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+			Connection c = null;
+			
+			Conn conn = Conn.getConnection();
+			c = conn.getDBConnection();
 			
 			stmt = c.createStatement();
 	
@@ -35,6 +42,7 @@ public class Cancel_Ticket_History {
 				System.out.print("\tTransaction ID: "+rs.getInt("trans_id"));
 				System.out.println("\tCancellation Date: "+rs.getString("cancel_date"));
 			}
+			
 		}
 		catch (Exception e) { 	
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());

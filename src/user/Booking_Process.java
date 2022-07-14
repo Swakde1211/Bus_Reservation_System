@@ -15,6 +15,7 @@ import static Reservation.GlobalVariables.user_source;
 import java.sql.*;
 import java.util.Scanner;
 
+import database.Conn;
 import exceptions.*;
 
 public class Booking_Process implements Booking_Process_Design {
@@ -51,8 +52,13 @@ public class Booking_Process implements Booking_Process_Design {
 
 		try {	
 			Statement stmt =null;		
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
-						stmt = c.createStatement();
+			//Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+			Connection c = null;
+			
+			Conn conn = Conn.getConnection();
+			c = conn.getDBConnection();
+				
+			stmt = c.createStatement();
 				ResultSet rs = stmt.executeQuery("select count(*) as count from public.\"bus_info\" where source='"+user_source+"' and destination='"+user_dest+"';");	
 				while (rs.next()) {		
 					String count=rs.getString("count");
@@ -148,7 +154,11 @@ public class Booking_Process implements Booking_Process_Design {
 				try {  
 					Statement stmt =null;
 					
-					Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+					//Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+					Connection c = null;
+					
+					Conn conn = Conn.getConnection();
+					c = conn.getDBConnection();
 					
 					stmt = c.createStatement();
 			
@@ -255,7 +265,11 @@ public class Booking_Process implements Booking_Process_Design {
 		try {	
 			Statement stmt =null;
 			
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+			//Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+Connection c = null;
+			
+			Conn conn = Conn.getConnection();
+			c = conn.getDBConnection();
 			
 			stmt = c.createStatement();
 	
@@ -283,7 +297,11 @@ public class Booking_Process implements Booking_Process_Design {
 		try {
 			Statement stmt =null;
 			
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+			//Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+			Connection c = null;
+			
+			Conn conn = Conn.getConnection();
+			c = conn.getDBConnection();
 			
 			stmt = c.createStatement();
 	
@@ -299,7 +317,11 @@ public class Booking_Process implements Booking_Process_Design {
 		try {	
 		Statement stmt =null;
 		
-		Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+	//	Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+		Connection c = null;
+		
+		Conn conn = Conn.getConnection();
+		c = conn.getDBConnection();
 		
 		stmt = c.createStatement();
 
@@ -327,7 +349,11 @@ public class Booking_Process implements Booking_Process_Design {
 		try {
 				Statement stmt =null;
 				
-				Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+			//	Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+				Connection c = null;
+				
+				Conn conn = Conn.getConnection();
+				c = conn.getDBConnection();
 				
 				stmt = c.createStatement();
 		

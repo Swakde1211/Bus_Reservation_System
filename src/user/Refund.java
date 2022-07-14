@@ -11,6 +11,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
+
+import database.Conn;
+
 import java.util.*;
 
 
@@ -30,7 +33,11 @@ public class Refund implements RefundDesign {
 		try {
 			Statement stmt =null;
 			
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+			//Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+Connection c = null;
+			
+			Conn conn = Conn.getConnection();
+			c = conn.getDBConnection();
 			
 			stmt = c.createStatement();
 	
@@ -64,7 +71,11 @@ public class Refund implements RefundDesign {
 		try {
 			Statement stmt =null;
 			
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+			//Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+Connection c = null;
+			
+			Conn conn = Conn.getConnection();
+			c = conn.getDBConnection();
 			
 			stmt = c.createStatement();
 	
@@ -109,7 +120,11 @@ public class Refund implements RefundDesign {
 		try {
 			Statement stmt =null;
 			
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+			//Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+Connection c = null;
+			
+			Conn conn = Conn.getConnection();
+			c = conn.getDBConnection();
 			
 			stmt = c.createStatement();
 	
@@ -137,7 +152,11 @@ public class Refund implements RefundDesign {
 		try {
 			Statement stmt =null;
 			
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+			//Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+Connection c = null;
+			
+			Conn conn = Conn.getConnection();
+			c = conn.getDBConnection();
 			
 			stmt = c.createStatement();
 			String sql2 ="DELETE FROM public.\"booking\" WHERE trans_id="+t_id +";";
@@ -155,7 +174,11 @@ public class Refund implements RefundDesign {
 		try {
 			Statement stmt =null;
 			
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+			//Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+Connection c = null;
+			
+			Conn conn = Conn.getConnection();
+			c = conn.getDBConnection();
 			
 			stmt = c.createStatement();
 	

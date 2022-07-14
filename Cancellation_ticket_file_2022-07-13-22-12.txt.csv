@@ -2,8 +2,9 @@ DATE IS :2022-07-13
 ***********Cancellation Summary**************
 
 Bus Sources,Bus Destination,Cancel Date,Count
-Panvel,Powai,2022-07-13,1
+Panvel,Nerul,2022-07-13,1
+Panvel,Powai,2022-07-13,2
 
 
-CANCELLATION AMOUNT IS :350
-CANCELLATION COUNT IS :1
+CANCELLATION AMOUNT IS :980
+CANCELLATION COUNT IS :3

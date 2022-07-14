@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.*;
 import java.util.Calendar;
+
+import database.Conn;
 public class View_booking_summary {
 	Statement stmt =null;
 	Connection c=null;
@@ -19,8 +21,12 @@ public class View_booking_summary {
 	int cancel_count_int;
 	public void truncate_table() {
 		try {
-			Class.forName("org.postgresql.Driver");
-			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "June@2022");
+			//Class.forName("org.postgresql.Driver");
+			//c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "June@2022");
+			Connection c=null;
+			Conn conn = Conn.getConnection();
+			c = conn.getDBConnection();
+
 			String sql3 ="TRUNCATE TABLE public.\"view_summary\";";
             PreparedStatement s = c.prepareStatement(sql3);
             s.executeUpdate();
@@ -35,11 +41,15 @@ public class View_booking_summary {
 		
 		//System.out.println(date);
 		try {
-			Class.forName("org.postgresql.Driver");
-			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "June@2022");
+			//Class.forName("org.postgresql.Driver");
+			//c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "June@2022");
+			Connection c=null;
+			Conn conn = Conn.getConnection();
+			c = conn.getDBConnection();
+
 			stmt = c.createStatement();
 			
-			System.out.print(date);
+		//	System.out.print("Date "+date);
 			ResultSet rs1 = stmt.executeQuery("SELECT SUM(CAST(bus_fare AS int)) as summ, count(*) as count FROM public.\"booking\" where date='"+date+"'");			
 			while (rs1.next()) {
 				booking_sum=rs1.getString("summ");
@@ -50,8 +60,8 @@ public class View_booking_summary {
 			}
 			booking_sum_int=Integer.parseInt(booking_sum);
 			count_int=Integer.parseInt(count);
-			System.out.println(booking_sum_int);
-			System.out.println(count_int);
+			//System.out.println("Booking sum "+booking_sum_int);
+			//System.out.println("Booking count "+count_int);
 			
 			
 				String sql2 ="INSERT INTO public.\"view_summary\"(date,booking_count,booking_amount) VALUES (?,?,?);";
@@ -60,7 +70,7 @@ public class View_booking_summary {
                 s.setInt(2, count_int);
                 s.setInt(3, booking_sum_int);
 	            s.executeUpdate();
-				System.out.println("Booking data Successfully updated in the table");
+				//System.out.println("Booking data Successfully updated in the table");
 		
 			
 			
@@ -73,9 +83,13 @@ public class View_booking_summary {
 	
 	public void shortcut_cancellation(String date) {
 		try {
-			System.out.print("Date : "+date+" ");
-			Class.forName("org.postgresql.Driver");
-			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "June@2022");
+			//System.out.print("Date : "+date+" ");
+			//Class.forName("org.postgresql.Driver");
+			//c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "June@2022");
+			Connection c=null;
+			Conn conn = Conn.getConnection();
+			c = conn.getDBConnection();
+
 			stmt = c.createStatement();
 			ResultSet rs1 = stmt.executeQuery("SELECT SUM(CAST(bus_fare AS int)) as summ, count(*) as count FROM public.\"cancellation_ticket\" where cancel_date='"+date+"'");			
 			while (rs1.next()) {
@@ -87,8 +101,8 @@ public class View_booking_summary {
 			}
 			cancel_sum_int=Integer.parseInt(cancel_sum);
 			cancel_count_int=Integer.parseInt(cancel_count);
-			System.out.println(cancel_sum_int);
-			System.out.println(cancel_count_int);
+			//System.out.println("Cancel sum "+cancel_sum_int);
+			//System.out.println("Cancel count "+cancel_count_int);
 			
 			//ResultSet rs=stmt.executeQuery("UPDATE public.\"view_summary\" SET (cancellation_count="+cancel_count_int+", cancellation_amount="+cancel_sum_int+") WHERE date = '"+date+"';");
 			String sql2 ="UPDATE public.\"view_summary\" SET cancellation_count=?, cancellation_amount=? WHERE date =?;";
@@ -98,7 +112,7 @@ public class View_booking_summary {
             s.setString(3, date);
             s.executeUpdate();
 			
-				System.out.println("Cancellation data Successfully updated in the table");
+				//System.out.println("Cancellation data Successfully updated in the table");
 		
 		}catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -128,6 +142,34 @@ public class View_booking_summary {
 	   shortcut_booking(dateFormat.format(cal.getTime()));
 	   shortcut_cancellation(dateFormat.format(cal.getTime()));
 	   }
+	   
+	   
+	   System.out.println("**************Transaction Summary**************");
+	   try {
+		   Class.forName("org.postgresql.Driver");
+		   c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
+stmt = c.createStatement();
+			ResultSet rs1 = stmt.executeQuery("SELECT * FROM public.\"view_summary\"");			
+			while (rs1.next()) {
+				String date2=rs1.getString("date");
+				int b_c=rs1.getInt("booking_count");
+				int b_a=rs1.getInt("booking_amount");
+				int c_c=rs1.getInt("cancellation_count");
+				int c_a	=rs1.getInt("cancellation_amount");
+				
+				System.out.print("Date:" +date2);
+				System.out.print("\tBooking Count:" +b_c);
+				System.out.print("\tBooking Amount:" +b_a);
+				System.out.print("\tCancellation Count:" +c_c);
+				System.out.println("\tCancellation Amount:" +c_a);
+				
+				
+			}
+		  
+	   }catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			// System.exit(0);
+		}
 	}
 }
 

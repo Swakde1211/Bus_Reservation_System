@@ -39,7 +39,7 @@ public class Login {
 			 
 			//user exception for username
 			  try {
-			   if(length < 6)
+			   if(length < 4)
 			    throw new UsernameException("Username must be greater than 6 characters ???");
 			  }
 			  catch (UsernameException u) {
@@ -69,8 +69,6 @@ public class Login {
 					int id = rs.getInt("id");
 					String username = rs.getString("username");
 					String password = rs.getString("password");
-					System.out.println(username+" "+name);
-					System.out.println(password+" "+pass);
 					if (username.equals(name) && password.equals(pass)) {
 						System.out.println("Successfully Logged In");
 						user_id = id;
