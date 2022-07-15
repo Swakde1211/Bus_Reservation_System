@@ -103,6 +103,7 @@ public class Booking_Process implements Booking_Process_Design {
 		catch(AgeException exp){
 			System.out.println(exp) ;
 			System.out.println("Please try again!!") ;
+			
 			System.exit(0);
 		}
 		
@@ -119,6 +120,7 @@ public class Booking_Process implements Booking_Process_Design {
 		}
 		else {
 			System.out.println("Invalid Input!");
+		
 			System.exit(0);
 		}
 
@@ -141,7 +143,9 @@ public class Booking_Process implements Booking_Process_Design {
 		}							
 		else {						
 			System.out.println("Enter Valid Option!");	
-			attempt++;				
+			
+			attempt++;		
+			continue;
 		}							
 		}while(attempt!=3);			
 		if(attempt==3) {			
@@ -377,6 +381,7 @@ Connection c = null;
                 
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+		
 			System.exit(0);
 		}
 

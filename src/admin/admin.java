@@ -1,10 +1,15 @@
 package admin;
+import static Reservation.GlobalVariables.is_admin;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
+
+import Reservation.Login;
+import user.User_Input;
 public class admin {
 
-	public void adminn() throws IOException, SQLException, ClassNotFoundException {
+	public void adminn() throws Exception {
 		int admin_choice;
 		Scanner sc=new Scanner(System.in);
 		do {
@@ -34,10 +39,20 @@ public class admin {
 				
 			}else if(admin_choice==7) {
 				System.out.println("You Have Successfully Exited!");
-				System.exit(0);
+				
+				Login l=new Login();
+				l.loginn();
+				
+				
+					User_Input u=new User_Input();
+					u.userinputt();			
+				
+				
+				//System.exit(0);
 				
 			}else {
 				System.out.println("Please Enter Correct Option !");
+				continue;
 			}
 		}while(admin_choice!=7);
 	}

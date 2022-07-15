@@ -1,5 +1,5 @@
 Bus_Id,Bus Number,Bus fare,Bus Sources,Bus Destination,Bus time,Bus Type,Seat_Available
-200,MH26RE3621,225,Panvel,Nerul,08:45:00,AC,13
-210,MH31QW1150,315,Panvel,Powai,04:30:00,AC,20
-500,MH31QW6715,315,Vitthalwadi,Powai,04:30:00,AC,30
-400,MH30RT4325,205,Ghatkopar,Powai,02:20:00,Non AC,30
+234,MH31QW1150,225,Panvel,Nerul,08:45:00,AC,
+456,MH39UW8150,315,Panvel,Powai,04:30:00,AC,20
+678,MH39WW6509,315,Vitthalwadi,Powai,04:30:00,AC,30
+178,MH39WW6509,315,,,,,

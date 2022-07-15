@@ -28,13 +28,13 @@ public class Add_bus {
 			Conn conn = Conn.getConnection();
 			c = conn.getDBConnection();
 			
-			System.out.println("DB connection successful");
+		//	System.out.println("DB connection successful");
 			}catch (Exception e) {
 				System.out.println("Oops! Database Connection Failed");
 			}
 			
 		Scanner sc=new Scanner(System.in);
-		System.out.println("Inside Add Bus");
+	//	System.out.println("Inside Add Bus");
 		System.out.println("Please Enter Following Details");
 		
 		//CHECKING FOR INTEGER BUS ID.

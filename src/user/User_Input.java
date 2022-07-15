@@ -10,6 +10,8 @@ import java.sql.Connection;
 
 import java.util.Scanner;
 
+import Reservation.Login;
+import admin.admin;
 import exceptions.*;
 
 
@@ -24,7 +26,7 @@ public class User_Input {
 	}
 
 		// TODO Auto-generated method stub
-		public static  void userinputt()
+		public static  void userinputt() throws Exception
 		{
 			Connection c = null;
 			
@@ -88,10 +90,23 @@ public class User_Input {
 //				} 
 				else if (choose_option == 5) {
 					System.out.println("Exit");
+					Login l=new Login();
+					l.loginn();
+					
+					if(is_admin) {
+						admin ad=new admin();
+						ad.adminn();
+					}
+					else {
+						User_Input u=new User_Input();
+						u.userinputt();			
+					}
+					
 					System.exit(0);
 				} 
 				else {
 					System.out.println("Please Enter Valid Choice !\n");
+					continue;
 				}
 
 				 }while(choose_option!=5);
