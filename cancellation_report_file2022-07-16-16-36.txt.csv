@@ -1,0 +1,11 @@
+DATE IS :2022-07-16
+
+*********Cancellation Report*********
+
+User id,Trans_id,Bus Sources,Bus Destination,Bus time, Bus fare,Bus ID,Bus Number,Ticket Date,Cancel Date
+1,Shivani,1064,Panvel,Powai,04:30:00,283,456,MH39UW8150,2022-07-16,2022-07-16
+1,Shivani,1065,Panvel,Powai,04:30:00,283,456,MH39UW8150,2022-07-16,2022-07-16
+
+
+
+CANCELLATION COUNT IS :2

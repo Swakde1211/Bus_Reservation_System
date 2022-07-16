@@ -1,0 +1,11 @@
+DATE IS :2022-07-16
+***********Booking Summary**************
+
+User id,Trans_id,Bus Sources,Bus Destination,Bus time, Bus fare,Bus ID,Bus Number,Date
+1,Shivani,1063,Panvel,Powai,04:30:00,283,952,MH31QW1150,2022-07-16
+1,Shivani,1066,Panvel,Thane,10:00:00,207,110,MH80AS1121,2022-07-16
+1,Shivani,1067,Panvel,Thane,10:00:00,207,110,MH80AS1121,2022-07-16
+
+
+
+BOOKING COUNT IS :3

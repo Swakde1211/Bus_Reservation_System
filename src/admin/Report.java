@@ -29,7 +29,6 @@ public class Report {
 		try {
 			Class.forName("org.postgresql.Driver");
 			Connection c =null ;
-			//DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
 			Conn conn = Conn.getConnection();
 			c = conn.getDBConnection();
 	
@@ -44,7 +43,6 @@ public class Report {
 			String booking_sum1;
 			String count1;
 			
-			//Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
 			Connection c=null;
 			Conn conn = Conn.getConnection();
 			c = conn.getDBConnection();
@@ -208,8 +206,6 @@ public class Report {
 
 		
 		try {
-		//	Class.forName("org.postgresql.Driver");
-			//Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
 			Connection c=null;
 			Conn conn = Conn.getConnection();
 			c = conn.getDBConnection();
@@ -260,12 +256,10 @@ public class Report {
         			
 	    			ResultSet rs = stmt.executeQuery("SELECT * FROM public.\"Users\" where id="+n+";");
 	    			while (rs.next()) {
-	    				//int id = rs.getInt("id");
 	    				String username = rs.getString("username");
 	    				sreport3.add(rs.getString("username"));
 	    	        	
 	    } }catch (Exception e) {
-	    			//System.err.println(e.getClass().getName() + ": " + e.getMessage());
 	    			System.out.println("Oops! ");
 	    			//System.exit(0);
 	    		}

@@ -22,19 +22,15 @@ public class Add_bus {
 		int bus_id=0;
 		
 		try {
-			///Class.forName("org.postgresql.Driver");
-		//	c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
 			
 			Conn conn = Conn.getConnection();
 			c = conn.getDBConnection();
 			
-		//	System.out.println("DB connection successful");
 			}catch (Exception e) {
 				System.out.println("Oops! Database Connection Failed");
 			}
 			
 		Scanner sc=new Scanner(System.in);
-	//	System.out.println("Inside Add Bus");
 		System.out.println("Please Enter Following Details");
 		
 		//CHECKING FOR INTEGER BUS ID.
@@ -71,8 +67,7 @@ public class Add_bus {
 		}
 		catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			// System.exit(0);
-		}
+				}
 		}while(flag);
 		System.out.println("Enter Bus Number :");
 		String bus_number=sc.next();
@@ -91,8 +86,6 @@ public class Add_bus {
 		//Handle exception for character
 		
 		try {
-//			Class.forName("org.postgresql.Driver");
-		//	c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");			
 			String sql2 ="INSERT INTO public.\"bus_info\"(bus_id, bus_number, bus_fare, source, destination, bus_time, bus_type, seats_available) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 			Conn conn = Conn.getConnection();
 			c = conn.getDBConnection();
@@ -109,7 +102,6 @@ public class Add_bus {
             
             s.executeUpdate();
 
-        //PreparedStatement s = c.prepareStatement(sql);
        
             System.out.println("\nBus Data Updated Succcessfully! ");
 		}

@@ -18,10 +18,7 @@ public class delete_bus {
 	public void delete_buss() {
 		int bus_id;
 		Scanner sc=new Scanner(System.in);
-		//System.out.println("Inside delete bus");
 		try {
-		//Class.forName("org.postgresql.Driver");
-		//c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");		System.out.println("DB connection successful");
 			Conn conn = Conn.getConnection();
 			c = conn.getDBConnection();
 
@@ -32,8 +29,6 @@ public class delete_bus {
 		
 		
 		try {
-			//Class.forName("org.postgresql.Driver");
-			//c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "June@2022");
 			stmt = c.createStatement();
 			ResultSet rs1 = stmt.executeQuery("SELECT * FROM public.\"bus_info\"");
 			System.out.println("Currently Runnimg Buses are : ");
@@ -48,7 +43,6 @@ public class delete_bus {
 			}
 		}catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			// System.exit(0);
 		}
 		
 		System.out.println("\nPlease Enter Bus ID to Delete bus:");
@@ -56,7 +50,6 @@ public class delete_bus {
 		try {
 			stmt = c.createStatement();
 			stmt.execute("DELETE FROM public.bus_info WHERE bus_id="+bus_id+";");
-		// System.out.println(rs.getFetchSize());
 			System.out.println("Bus "+bus_id+" Deleted Successfully!");
 	} catch (Exception e) {
 		System.err.println(e.getClass().getName() + ": " + e.getMessage());

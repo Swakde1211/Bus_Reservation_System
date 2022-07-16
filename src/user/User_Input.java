@@ -82,12 +82,7 @@ public class User_Input {
 					bh.view_history();
 					
 			} 
-//					else if(choose_option == 5) {
-//					
-//					Cancel_Ticket_History cth=new Cancel_Ticket_History();
-//					cth.cancel_ticket_historyy();
-//					
-//				} 
+//					 
 				else if (choose_option == 5) {
 					System.out.println("Exit");
 					Login l=new Login();

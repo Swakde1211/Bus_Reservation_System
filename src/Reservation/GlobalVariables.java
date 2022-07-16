@@ -17,7 +17,9 @@ public class GlobalVariables {
 	public static int transaction_id;
 	public static String bus_type1;
 	public static boolean is_admin=false;
+	public static String first_name;
 	
-
+	public static int pass_id;
+	public static int ticket_count;
 			
 }

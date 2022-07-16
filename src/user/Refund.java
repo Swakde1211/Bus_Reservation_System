@@ -22,19 +22,45 @@ interface RefundDesign{
 }
 
 public class Refund implements RefundDesign {
+	public static String get_name(int p_id) {
+		int get_p_id=p_id;
+		String user_first_name=null;
+
+		if(get_p_id==0){	
+			user_first_name=first_name;
+		}
+		else {	
+			try {
+			Statement stmt =null;
+			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");			stmt = c.createStatement();
+				ResultSet rs2 = stmt.executeQuery("SELECT first_name FROM public.\"passanger\" WHERE p_id="+get_p_id+";");
+				while (rs2.next()) {
+					user_first_name=rs2.getString("first_name");					
+				}
+			}catch (Exception e) {
+				System.err.println(e.getClass().getName() + ": " + e.getMessage());
+				System.exit(0);
+			}
+		}
+		return user_first_name;
+	}
+
 	
 	public static void refundd()
 	{
 		Scanner sc=new Scanner(System.in);
+		int get_p_id;
+		int p_id=-1;
 		String date1;
+		String user_name_str;
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	    Date date = new Date();
 	    date1=formatter.format(date);
+		
 		try {
 			Statement stmt =null;
 			
-			//Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
-Connection c = null;
+			Connection c = null;
 			
 			Conn conn = Conn.getConnection();
 			c = conn.getDBConnection();
@@ -47,10 +73,16 @@ Connection c = null;
 			System.out.println("You Don't have booking history today!");	
 			System.exit(0);				
 		}
+
+
+		
 		System.out.println("****************Cancelling Your Ticket !****************\n");
-		System.out.println("Please Select Transaction ID of Ticket to Cancel Your Ticket.\n");
+		System.out.println("Hey "+first_name+",Please Select Transaction ID of Ticket to Cancel Your Ticket.\n");
 		while (rs1.next()) {
-			System.out.print("PNR NO: "+rs1.getInt("trans_id"));
+			System.out.print("Transaction ID: "+rs1.getInt("trans_id"));
+			get_p_id=rs1.getInt("p_id");
+			user_name_str=get_name(get_p_id);
+			System.out.print("\tName: "+user_name_str);
 			System.out.print("\tDate: "+rs1.getString("date"));
 			System.out.print("\tBus ID: "+rs1.getInt("bus_id"));
 			System.out.print("\tBus Souce: "+rs1.getString("bus_source"));
@@ -58,7 +90,8 @@ Connection c = null;
 			System.out.print("\tBus Time: "+rs1.getString("bus_time"));
 			System.out.print("\tBus Fare: "+rs1.getString("bus_fare"));
 			System.out.println("\tBus Number: "+rs1.getString("bus_number"));
-			}
+		}
+		
 		}
 		catch (Exception e) {
 			System.out.println("Invalid Transaction ID");		
@@ -120,8 +153,7 @@ Connection c = null;
 		try {
 			Statement stmt =null;
 			
-			//Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
-Connection c = null;
+			Connection c = null;
 			
 			Conn conn = Conn.getConnection();
 			c = conn.getDBConnection();
@@ -152,8 +184,7 @@ Connection c = null;
 		try {
 			Statement stmt =null;
 			
-			//Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
-Connection c = null;
+			Connection c = null;
 			
 			Conn conn = Conn.getConnection();
 			c = conn.getDBConnection();
@@ -174,8 +205,7 @@ Connection c = null;
 		try {
 			Statement stmt =null;
 			
-			//Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
-Connection c = null;
+			Connection c = null;
 			
 			Conn conn = Conn.getConnection();
 			c = conn.getDBConnection();

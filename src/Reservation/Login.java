@@ -73,9 +73,12 @@ public class Login {
 						System.out.println("Successfully Logged In");
 						user_id = id;
 						user_name = username;
-
+						user_gender=rs.getString("gender");
+						first_name=rs.getString("first_name");
+						user_age=rs.getInt("age");
 						flag = false;
 						break;
+						
 					}
 					
 					else if (flag) {
@@ -96,7 +99,6 @@ public class Login {
 			}
 			
 			
-		//	System.out.println("Username -> " + user_name + " And Password is : " + user_id);
 		
 
 		}

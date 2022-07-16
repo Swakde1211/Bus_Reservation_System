@@ -49,7 +49,7 @@ public class View_History {
 			i=1;
 			ResultSet rs1 = stmt.executeQuery("select * from public.\"cancellation_ticket\" where user_id='"+ user_id +"';");
 			if(!rs1.isBeforeFirst()) {
-				//System.out.println(rs.isBeforeFirst());
+				
 				System.out.println("You don't have any Cancellation history yet!");
 			}
 			while (rs1.next()) {

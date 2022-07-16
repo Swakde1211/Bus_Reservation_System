@@ -21,8 +21,6 @@ public class View_booking_summary {
 	int cancel_count_int;
 	public void truncate_table() {
 		try {
-			//Class.forName("org.postgresql.Driver");
-			//c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "June@2022");
 			Connection c=null;
 			Conn conn = Conn.getConnection();
 			c = conn.getDBConnection();
@@ -39,29 +37,21 @@ public class View_booking_summary {
 	
 	public void shortcut_booking(String date) {
 		
-		//System.out.println(date);
 		try {
-			//Class.forName("org.postgresql.Driver");
-			//c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "June@2022");
 			Connection c=null;
 			Conn conn = Conn.getConnection();
 			c = conn.getDBConnection();
 
 			stmt = c.createStatement();
 			
-		//	System.out.print("Date "+date);
 			ResultSet rs1 = stmt.executeQuery("SELECT SUM(CAST(bus_fare AS int)) as summ, count(*) as count FROM public.\"booking\" where date='"+date+"'");			
 			while (rs1.next()) {
 				booking_sum=rs1.getString("summ");
 				count=rs1.getString("count");
-				//System.out.print(" Bus Id: " +booking_sum );
-				//System.out.println(" Count : " +count );
 				
 			}
 			booking_sum_int=Integer.parseInt(booking_sum);
 			count_int=Integer.parseInt(count);
-			//System.out.println("Booking sum "+booking_sum_int);
-			//System.out.println("Booking count "+count_int);
 			
 			
 				String sql2 ="INSERT INTO public.\"view_summary\"(date,booking_count,booking_amount) VALUES (?,?,?);";
@@ -70,7 +60,6 @@ public class View_booking_summary {
                 s.setInt(2, count_int);
                 s.setInt(3, booking_sum_int);
 	            s.executeUpdate();
-				//System.out.println("Booking data Successfully updated in the table");
 		
 			
 			

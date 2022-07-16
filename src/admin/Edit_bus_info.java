@@ -16,17 +16,14 @@ public class Edit_bus_info {
 		try {
 			Statement stmt =null;		
 			Connection c =null;
-			//c= DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");					
 			Conn conn = Conn.getConnection();
 			c = conn.getDBConnection();
 	
 			stmt = c.createStatement();
 					stmt.execute("UPDATE public.\"bus_info\" SET "+ Column_name+"='"+Column_value+"' WHERE bus_id=" + user_input + "");
-					// System.out.println(rs.getFetchSize());
 					System.out.println("Bus Information Updated Successfully !");
 				} catch (Exception e) {
 					System.err.println(e.getClass().getName() + ": " + e.getMessage());
-					// System.exit(0);
 				}
 		
 	}
@@ -35,10 +32,7 @@ public class Edit_bus_info {
 		Statement stmt =null;
 		Connection c=null;
 		Scanner sc=new Scanner(System.in);
-			//System.out.println("Inside delete bus");
 			try {
-			//Class.forName("org.postgresql.Driver");
-			//c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");			System.out.println("DB connection successful");
 				Conn conn = Conn.getConnection();
 				c = conn.getDBConnection();
 
