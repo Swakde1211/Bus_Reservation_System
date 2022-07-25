@@ -63,8 +63,8 @@ public class Login {
 					is_admin=true;
 				}				
 				else {
-				ResultSet rs = stmt.executeQuery("SELECT * FROM public.\"Users\";");
-				
+					ResultSet rs = stmt.executeQuery("SELECT * FROM public.\"Users\" where username='"+name+"' and password='"+pass+"';");
+									
 				while (rs.next()) {
 					int id = rs.getInt("id");
 					String username = rs.getString("username");

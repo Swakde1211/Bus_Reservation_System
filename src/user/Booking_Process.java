@@ -1,6 +1,6 @@
 package user;
 
-import static Reservation.GlobalVariables.bus_id;
+import static Reservation.GlobalVariables.*;
 import static Reservation.GlobalVariables.bus_number;
 import static Reservation.GlobalVariables.bus_time;
 import static Reservation.GlobalVariables.bus_type1;
@@ -376,6 +376,9 @@ stmt = c.createStatement();
 				System.err.println(e.getClass().getName() + ": " + e.getMessage());
 				// System.exit(0);
 			}
+
+		if (ticket_count == 1 && user_ticket_choice == 'y') {
+			
 			try {Statement stmt =null;
 			
 			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");
@@ -407,6 +410,7 @@ stmt = c.createStatement();
 				System.err.println(e.getClass().getName() + ": " + e.getMessage());
 				System.exit(0);
 			}
+		}
 				try {
 					Statement stmt =null;
 					Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Bus_Registration", "postgres", "root");

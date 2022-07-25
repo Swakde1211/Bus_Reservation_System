@@ -18,7 +18,8 @@ public class GlobalVariables {
 	public static String bus_type1;
 	public static boolean is_admin=false;
 	public static String first_name;
-	
+	public static char user_ticket_choice;
+	public static double total_fare;
 	public static int pass_id;
 	public static int ticket_count;
 			
